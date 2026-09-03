@@ -1,0 +1,17 @@
+{
+  "name": "prompt-vault",
+  "version": "1.0.0",
+  "private": true,
+  "description": "结构化个人提示词库 · 12 大分类 / 一键复制 / 变量填充 / 零依赖静态站",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev-server.mjs",
+    "seed": "node tools/seed.mjs"
+  },
+  "keywords": ["prompt", "prompts", "提示词", "prompt-library", "ai"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

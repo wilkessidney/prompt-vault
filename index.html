@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PromptVault · 个人提示词库</title>
+<meta name="description" content="结构化个人提示词库：88+ 条精选提示词，12 大分类、86 个子分类，支持一键复制、变量填充与全文检索。">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡️</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- ============ SVG Sprite ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="s"><symbol id="i-s" viewBox="0 0 24 24"><use href="#p"/></symbol></g>
+  </defs>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 16.5L16.5 12 11 17.5 8 14.5 3 19"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="2" y="5" width="14" height="14" rx="2.5"/><path d="M16 10.5l6-3.5v10l-6-3.5z"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7.5 18.5 3 20l1.5-4.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a3 3 0 013 3v13a2.5 2.5 0 00-2.5-2.5H2zM22 4h-6a3 3 0 00-3 3v13a2.5 2.5 0 012.5-2.5H22z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6" rx="1"/><rect x="12.5" y="7" width="3" height="10" rx="1"/><rect x="18" y="13" width="3" height="4" rx="1"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11l-1 8.5L19.5 10H13z"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M21 16.5V7.5L12 2.5 3 7.5v9L12 21.5z"/><path d="M3.4 7.6L12 12.4l8.6-4.8M12 21.6v-9.2"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2.5"/><path d="M16 21V5.5A1.5 1.5 0 0014.5 4h-5A1.5 1.5 0 008 5.5V21"/></symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 001 1h2l4.5 4V6L6 10H4a1 1 0 00-1 1z"/><path d="M14.5 8.5a4.5 4.5 0 010 7M17.5 5.5a8.5 8.5 0 010 13"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.9 4.7L18.6 9.6l-4.7 1.9L12 16.2l-1.9-4.7L5.4 9.6l4.7-1.9z"/><path d="M18.5 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></symbol>
+  <symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M6 12h4M8 10v4M15.5 11.5h.01M18 13.5h.01"/><rect x="2" y="6" width="20" height="12" rx="5"/></symbol>
+
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5L16 16"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2.2"/><path d="M5 15H4.2A2.2 2.2 0 012 12.8V4.2A2.2 2.2 0 014.2 2h8.6A2.2 2.2 0 0115 4.2V5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6.5L9.5 17 4 11.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 17l-5.3 2.7 1.1-5.9L3.5 9.7l5.9-.8z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5.5M12 19l-6.5-7 6.5-7"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13.2A9 9 0 1110.8 3a7 7 0 0010.2 10.2z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19.3c-4 1.2-4-2.1-5.6-2.6m11.2 5v-3.4a3.1 3.1 0 00-.9-2.4c2.9-.3 5.3-1.5 5.3-6.4a5 5 0 00-1.4-3.4 4.6 4.6 0 00-.1-3.5s-1.4-.4-4.5 1.7a11 11 0 00-5.6 0C4.3 2.6 2.9 3 2.9 3a4.6 4.6 0 00-.1 3.5A5 5 0 001.4 10c0 4.9 2.4 6.1 5.3 6.4a3.1 3.1 0 00-.9 2.4V22"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.7-1.7"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 01-2 2H4a2 2 0 01-2-2v-6z"/></symbol>
+</svg>
+
+<div class="bg-glow" aria-hidden="true"></div>
+
+<!-- ============ Header ============ -->
+<header class="hdr">
+  <div class="hdr-in">
+    <button class="icon-btn only-mobile" id="menuBtn" aria-label="打开分类"><svg class="ic"><use href="#i-menu"/></svg></button>
+
+    <a class="brand" href="#/" aria-label="回到首页">
+      <span class="brand-mark"><svg class="ic"><use href="#i-sparkles"/></svg></span>
+      <span class="brand-txt">Prompt<b>Vault</b><em>提示词库</em></span>
+    </a>
+
+    <div class="search" role="search">
+      <svg class="ic search-ic"><use href="#i-search"/></svg>
+      <input id="q" type="search" placeholder="搜索标题、摘要、标签或正文…" autocomplete="off" spellcheck="false">
+      <kbd class="kbd-hint">/</kbd>
+      <button class="search-clear" id="qClear" hidden aria-label="清空搜索"><svg class="ic"><use href="#i-close"/></svg></button>
+    </div>
+
+    <div class="hdr-act">
+      <button class="chip-btn" id="favBtn" title="只看收藏">
+        <svg class="ic"><use href="#i-star"/></svg><span class="chip-btn-t">收藏 <b id="favCount">0</b></span>
+      </button>
+      <a class="icon-btn" id="ghLink" href="https://github.com/wilkessidney/prompt-vault" target="_blank" rel="noopener" aria-label="GitHub 仓库"><svg class="ic"><use href="#i-github"/></svg></a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题"><svg class="ic"><use href="#i-moon"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ Layout ============ -->
+<div class="layout">
+  <div class="scrim" id="scrim" hidden></div>
+
+  <aside class="side" id="side">
+    <div class="side-top">
+      <span class="side-title">分类导航</span>
+      <button class="side-reset" id="resetBtn">重置</button>
+    </div>
+    <nav class="tree" id="tree" aria-label="分类导航"></nav>
+    <div class="side-foot">
+      <a href="#/" id="totalLink">共 <b id="totalCount">0</b> 条提示词</a>
+      <span class="side-note">数据由 <code>prompts/</code> 构建生成</span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- 首页视图 -->
+    <section id="viewHome">
+      <div class="hero" id="hero">
+        <div class="hero-txt">
+          <span class="hero-kicker"><i></i>结构化 · 可维护 · 一键复制</span>
+          <h1>把好用的提示词<br>存成一个<em>能查得到的库</em></h1>
+          <p class="hero-sub">覆盖代码、绘图、写作、研究、产品、商业等 12 大领域。每条提示词都带分类标签、变量占位与完整说明，复制即用。</p>
+          <div class="hero-stats">
+            <div class="stat"><b id="sTotal">0</b><span>条提示词</span></div>
+            <div class="stat"><b id="sCat">0</b><span>个大类</span></div>
+            <div class="stat"><b id="sSub">0</b><span>个子分类</span></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+          <div class="hero-card">
+            <span class="dot"></span>
+            <div class="l1"></div><div class="l2"></div><div class="l3"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quickbar" id="quickbar"></div>
+
+      <div class="toolbar">
+        <div class="tool-l">
+          <h2 id="resultTitle" class="res-title">全部提示词</h2>
+          <span class="res-count" id="resCount">0 条</span>
+        </div>
+        <div class="tool-r">
+          <label class="sel">
+            <svg class="ic"><use href="#i-sliders"/></svg>
+            <select id="sortSel">
+              <option value="updated">最近更新</option>
+              <option value="title">标题 A→Z</option>
+              <option value="cat">按分类</option>
+              <option value="chars">内容长度</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+      <div id="empty" class="empty" hidden>
+        <svg class="ic"><use href="#i-inbox"/></svg>
+        <p>没有匹配的提示词</p>
+        <span id="emptyHint">试试换个关键词，或清空筛选条件</span>
+        <button class="btn btn-ghost" id="emptyReset">清空筛选</button>
+      </div>
+    </section>
+
+    <!-- 详情视图 -->
+    <section id="viewDetail" hidden></section>
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="foot-in">
+    <span>PromptVault · 个人提示词库</span>
+    <span class="dot-sep">·</span>
+    <span>新增提示词：在 <code>prompts/&lt;分类&gt;/&lt;子分类&gt;/</code> 下加一个 <code>.md</code>，然后 <code>npm run build</code></span>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts"></div>
+
+<script src="data/prompts.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
