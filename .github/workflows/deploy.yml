@@ -24,18 +24,10 @@ jobs:
           node-version: 24
       - name: Build
         run: node scripts/build.mjs
-      - name: 回写构建产物（让 GitHub 网页端新增的提示词也能同步回仓库）
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --cached --quiet; then
-            echo "构建产物无变化，跳过提交"
-          else
-            git commit -m "chore: rebuild data [skip ci]"
-            git pull --rebase origin main
-            git push
-          fi
+      # 注意：这里刻意「不」把构建产物 data/ 回写仓库。
+      # data/ 是真源 prompts/*.md 的派生物，双向写入（本地 build 提交 + Actions 回写）
+      # 必然产生冲突。线上部署用的是本次构建的 data，不受影响；
+      # 在网页端新增提示词后，本地 git pull 再跑一次 npm run build 即可同步。
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

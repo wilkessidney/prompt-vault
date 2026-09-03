@@ -84,7 +84,10 @@ updated: 2026-09-04
 2. 文件名填 `my-new-prompt.md`，内容按途径 B 的格式贴进去
 3. 底部 **Commit changes**
 
-GitHub Actions 会自动跑 `npm run build` 并部署，**同时把构建产物 `data/` 自动回写仓库**（带 `[skip ci]`，不会循环触发）。所以下次你在本地 `git pull` 就能拿到同步好的数据，无需手动重跑构建。
+GitHub Actions 会自动跑 `npm run build` 并部署，约 1 分钟上线——**线上看到的就是最新的。**
+
+> `data/` 是 `prompts/*.md` 的构建产物，Actions 不会把它回写仓库（双向写入必然和本地 build 冲突）。
+> 所以网页端加完提示词后，本地 `git pull` 再跑一次 `npm run build` 即可同步。
 
 ---
 
