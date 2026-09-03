@@ -21,12 +21,54 @@ const OUT = join(ROOT, 'data', 'prompts.json');
 const escapeHtml = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** 把 {{变量}} 包成可高亮、可填充的 span（入参必须是已转义的 HTML 文本） */
+/**
+ * 判断一个占位符是「填空型」还是「选项型」
+ *   填空型 {{主题}} {{字段与类型}}        -> 用户自由输入
+ *   选项型 {{趋势 / 对比 / 构成}}         -> 从若干选项里选一个
+ *
+ * 启发式（避免把 `CPU/内存/网络` 这类并列填空误判成选项）：
+ *   1. 不含 /            -> 填空
+ *   2. 有「标签：选项A/选项B」结构且 ≥3 项 -> 选项
+ *   3. 无标签、无空格、≥3 项且每项 ≤4 字  -> 填空（并列枚举）
+ *   4. 含「 / 」或 ≥3 项  -> 选项
+ *   5. 其余              -> 填空
+ */
+function classifyVar(raw) {
+  if (!raw.includes('/')) return { type: 'input', name: raw };
+
+  const m = /^([^：:]{1,12})[：:]\s*([\s\S]+)$/.exec(raw);
+  const label = m ? m[1].trim() : null;
+  const rest = m ? m[2].trim() : raw;
+  const parts = rest.split('/').map((s) => s.trim()).filter(Boolean);
+  const spaced = / \/ |\//.test(raw) && raw.includes(' / ');
+  const shortAll = parts.every((p) => [...p].length <= 4);
+
+  let isChoice;
+  if (parts.length < 2) isChoice = false;
+  else if (label && parts.length >= 3) isChoice = true;
+  else if (!label && !spaced && parts.length >= 3 && shortAll) isChoice = false;
+  else isChoice = spaced || parts.length >= 3;
+
+  if (!isChoice) return { type: 'input', name: raw };
+  return { type: 'choice', name: raw, label, options: parts };
+}
+
+/** 把 {{占位}} 包成可高亮、可填充的 span（入参必须是已转义的 HTML 文本） */
 function markVars(escaped) {
   return escaped.replace(/\{\{([^{}]+)\}\}/g, (m, v) => {
-    const name = v.trim();
-    if (!name) return m;
-    return `<span class="pv-var" data-var="${escapeHtml(name)}">{{${escapeHtml(name)}}}</span>`;
+    const raw = v.trim();
+    if (!raw) return m;
+    const attr = escapeHtml(raw);
+    const info = classifyVar(raw);
+    if (info.type === 'choice') {
+      const opts = info.options.map(escapeHtml);
+      const tip = (info.label ? info.label + '：' : '') + info.options.join(' / ');
+      return `<span class="pv-var pv-choice" data-var="${attr}" data-idx="0" ` +
+        `data-options="${escapeHtml(info.options.join('\u0001'))}" ` +
+        `data-label="${info.label ? escapeHtml(info.label) : ''}" ` +
+        `title="点击切换：${escapeHtml(tip)}">${opts[0]}</span>`;
+    }
+    return `<span class="pv-var" data-var="${attr}">{{${attr}}}</span>`;
   });
 }
 
@@ -247,7 +289,17 @@ for (const file of files) {
   }
 
   const content = body.replace(/^\n+|\s+$/g, '');
-  const variables = [...new Set([...content.matchAll(/\{\{([^{}]+)\}\}/g)].map((m) => m[1].trim()))];
+  // 占位符分两类：inputs = 用户自由填写；choices = 从给定选项里选一个（带默认值）
+  const phs = [...new Set([...content.matchAll(/\{\{([^{}]+)\}\}/g)].map((m) => m[1].trim()))];
+  const inputs = [],
+    choices = [];
+  for (const p of phs) {
+    const info = classifyVar(p);
+    if (info.type === 'choice') choices.push({ name: p, label: info.label, options: info.options });
+    else inputs.push(p);
+  }
+  // variables 保留全部占位名，供「变量 N 个」等展示使用
+  const variables = phs;
 
   items.push({
     id: `${cat}/${sub}/${slug}`,
@@ -263,6 +315,8 @@ for (const file of files) {
     updated: data.updated || '',
     chars: content.length,
     variables,
+    inputs,
+    choices,
     content,
     html: markdown(content),
   });

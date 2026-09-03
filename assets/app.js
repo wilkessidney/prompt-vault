@@ -363,15 +363,31 @@
   }
 
   function varsHtml(it) {
+    var chs = it.choices || [], ins = it.inputs || [];
+    if (!chs.length && !ins.length) return '';
     return '' +
       '<div class="vars">' +
         '<div class="vars-head">' +
           '<span class="badge">变量填充</span>' +
           '填写后正文会实时替换，可一键复制成稿' +
-          '<span class="hint">留空则保留占位符</span>' +
+          '<span class="hint">下拉项默认取第一项，也可点正文里的选项直接切换</span>' +
         '</div>' +
         '<div class="vars-grid">' +
-          it.variables.map(function (v) {
+          chs.map(function (c) {
+            // 没有「标签：」前缀时，用前两项做标签，避免整串选项把标签撑爆
+            var lb = c.label ||
+              (c.options.length > 2
+                ? c.options.slice(0, 2).join(' / ') + ' …'
+                : c.options.join(' / '));
+            return '<div class="vf"><label title="' + esc(c.name) + '">' +
+              esc(lb) + '</label>' +
+              '<select data-var="' + esc(c.name) + '">' +
+                c.options.map(function (o) {
+                  return '<option value="' + esc(o) + '">' + esc(o) + '</option>';
+                }).join('') +
+              '</select></div>';
+          }).join('') +
+          ins.map(function (v) {
             return '<div class="vf"><label title="' + esc(v) + '">{{ ' + esc(v) + ' }}</label>' +
               '<input type="text" data-var="' + esc(v) + '" placeholder="' + esc(v) + '"></div>';
           }).join('') +
@@ -379,22 +395,61 @@
       '</div>';
   }
 
+  /** 按占位名在填充面板里找对应控件（避开属性选择器的转义问题） */
+  function findCtl(name, tag) {
+    var all = $$(tag === 'select' ? '.vars select' : '.vars input');
+    for (var i = 0; i < all.length; i++) if (all[i].dataset.var === name) return all[i];
+    return null;
+  }
+
+  /** 把某个占位的当前值同步到正文所有对应位置 */
+  function syncOne(name, val) {
+    $$('#mdBody .pv-var').forEach(function (sp) {
+      if (sp.dataset.var !== name) return;
+      if (sp.classList.contains('pv-choice')) {
+        var opts = sp.dataset.options.split('\u0001');
+        var i = opts.indexOf(val);
+        if (i < 0) i = 0;
+        sp.dataset.idx = i;
+        sp.textContent = opts[i];
+        sp.classList.toggle('filled', i > 0);
+      } else if (val) {
+        sp.textContent = val;
+        sp.classList.add('filled');
+      } else {
+        sp.textContent = '{{' + name + '}}';
+        sp.classList.remove('filled');
+      }
+    });
+  }
+
   function bindVars(it, fill) {
-    var body = $('#dtlBody');
-    $$('.vars input').forEach(function (inp) {
-      inp.addEventListener('input', function () {
-        var name = inp.dataset.var;
-        fill[name] = inp.value.trim();
-        $$('#mdBody .pv-var').forEach(function (sp) {
-          if (sp.dataset.var !== name) return;
-          if (fill[name]) {
-            sp.textContent = fill[name];
-            sp.classList.add('filled');
-          } else {
-            sp.textContent = '{{' + name + '}}';
-            sp.classList.remove('filled');
-          }
-        });
+    // 选项型：默认第一项，保证「复制填充版」开箱可用
+    (it.choices || []).forEach(function (c) {
+      fill[c.name] = c.options[0];
+      syncOne(c.name, c.options[0]);
+    });
+
+    $$('.vars input, .vars select').forEach(function (el) {
+      var handler = function () {
+        var name = el.dataset.var;
+        fill[name] = el.value.trim();
+        syncOne(name, fill[name]);
+      };
+      el.addEventListener('input', handler);
+      el.addEventListener('change', handler);
+    });
+
+    // 正文里的选项 chip：点击循环切换
+    $$('#mdBody .pv-choice').forEach(function (sp) {
+      sp.addEventListener('click', function () {
+        var opts = sp.dataset.options.split('\u0001');
+        var idx = ((+sp.dataset.idx || 0) + 1) % opts.length;
+        var val = opts[idx];
+        fill[sp.dataset.var] = val;
+        syncOne(sp.dataset.var, val);
+        var sel = findCtl(sp.dataset.var, 'select');
+        if (sel) sel.value = val;
       });
     });
   }
@@ -552,7 +607,11 @@
 
   function collectVars() {
     var f = {};
-    $$('.vars input').forEach(function (i) { f[i.dataset.var] = i.value.trim(); });
+    $$('.vars input, .vars select').forEach(function (i) { f[i.dataset.var] = i.value.trim(); });
+    // 兜底：正文里切换过、但面板里没有的占位
+    $$('#mdBody .pv-choice').forEach(function (sp) {
+      if (!(sp.dataset.var in f)) f[sp.dataset.var] = sp.textContent.trim();
+    });
     return f;
   }
 

@@ -482,11 +482,15 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 .vars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
 .vf { display: flex; flex-direction: column; gap: 4px; }
 .vf label { font-size: 11.5px; color: var(--text-2); font-weight: 550; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.vf input {
+.vf input, .vf select {
   height: 34px; padding: 0 10px; border-radius: 8px; font-size: 13px;
   border: 1px solid var(--border); background: var(--surface); outline: none; transition: .15s;
+  color: var(--text); width: 100%;
 }
-.vf input:focus { border-color: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 14%, transparent); }
+.vf input:focus, .vf select:focus { border-color: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 14%, transparent); }
+/* 选项型：用不同底色区分「选一个」和「自己填」 */
+.vf select { background: color-mix(in srgb, var(--c) 7%, var(--surface)); border-style: dashed; cursor: pointer; }
+.vf:has(select) label::before { content: '▾ '; color: var(--c); }
 
 /* 正文 */
 .dtl-body {
@@ -541,6 +545,19 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
 .md pre .pv-var { background: none; border-style: dotted; padding: 0 2px; }
 .md pre .pv-var.filled { background: none; border-color: transparent; color: inherit; font-weight: 600; }
+
+/* 选项型占位：正文里可点击循环切换 */
+.pv-choice {
+  cursor: pointer; user-select: none;
+  border-style: solid; position: relative;
+}
+.pv-choice::after {
+  content: ' ⇄'; font-size: .82em; opacity: .5;
+}
+.pv-choice:hover { border-color: var(--c); background: color-mix(in srgb, var(--c) 20%, transparent); }
+.pv-choice.filled { border-style: solid; background: color-mix(in srgb, var(--ok) 14%, transparent);
+  color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.md pre .pv-choice { border-style: solid; }
 
 /* 相关推荐 */
 .rel { margin-top: 28px; }
