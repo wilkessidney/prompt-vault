@@ -7,6 +7,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "dev": "node scripts/dev-server.mjs",
+    "new": "node tools/new-prompt.mjs",
     "seed": "node tools/seed.mjs"
   },
   "keywords": ["prompt", "prompts", "提示词", "prompt-library", "ai"],

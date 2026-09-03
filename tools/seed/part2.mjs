@@ -361,10 +361,10 @@ jazz concert poster design, a saxophonist silhouette in smoke, Swiss style grid 
     content: `你是短视频编剧，深谙 {{平台：抖音 / 视频号 / 小红书 / YouTube Shorts}} 的完播逻辑。
 
 ## 选题与背景
-- 主题：{{}}
-- 目标受众：{{}}，他们的痛点是 {{}}
+- 主题：{{主题}}
+- 目标受众：{{目标受众}}，他们的痛点是 {{核心痛点}}
 - 视频时长：{{15s / 30s / 60s}}
-- 账号人设：{{}}
+- 账号人设：{{账号人设}}
 - 目的：{{涨粉 / 引流 / 带货 / 品牌}}
 
 ## 输出结构
@@ -411,8 +411,8 @@ jazz concert poster design, a saxophonist silhouette in smoke, Swiss style grid 
 {{脚本正文 或 文案 或 故事描述}}
 
 ## 视频规格
-- 时长：{{}}
-- 风格基调：{{}}
+- 时长：{{时长}}
+- 风格基调：{{风格基调}}
 - 拍摄条件：{{单机位 / 多机位 / 素材剪辑 / AI 生成}}
 
 ## 输出：分镜表
@@ -618,10 +618,10 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
     content: `你是播客制作人。规划一期节目。
 
 ## 节目信息
-- 节目名/定位：{{}}
-- 本期主题：{{}}
+- 节目名/定位：{{节目名/定位}}
+- 本期主题：{{本期主题}}
 - 嘉宾：{{背景与经历}}
-- 目标听众：{{}}
+- 目标听众：{{目标听众}}
 - 时长：{{30 / 60 / 90 分钟}}
 - 形式：{{单人 / 访谈 / 对谈 / 圆桌}}
 
@@ -674,7 +674,7 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
 ## 写作背景
 - 目标读者：{{身份、已有认知水平、真实痛点}}
 - 读者读完应该：{{知道 / 能做 / 相信什么}}
-- 字数：{{}}
+- 字数：{{字数}}
 - 平台与调性：{{公众号 / 知乎 / 个人博客 / 行业媒体}}
 - 我的独特视角（必填）：{{只有我能讲的经历或观点}}
 
@@ -722,7 +722,7 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
 {{公众号 / 小红书 / 知乎 / 头条 / 邮件主题 / YouTube}}
 
 ## 目标
-- 读者是谁：{{}}
+- 读者是谁：{{读者是谁}}
 - 希望触发的情绪：{{好奇 / 焦虑 / 认同 / 紧迫}}
 - 限制：{{字数上限、禁用词}}
 
@@ -771,8 +771,8 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
     content: `你是小红书内容操盘手，深谙平台语感。
 
 ## 内容信息
-- 主题：{{}}
-- 我的身份/人设：{{}}
+- 主题：{{主题}}
+- 我的身份/人设：{{我的身份/人设}}
 - 目标受众：{{年龄/身份/痛点}}
 - 笔记目的：{{种草 / 干货 / 记录 / 引流}}
 - 是否有产品：{{产品名与卖点，无则写「无」}}
@@ -836,7 +836,7 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
 
 ## 改写目标
 - 场景：{{邮件 / 报告 / 公众号 / 论文 / 社媒}}
-- 读者：{{}}
+- 读者：{{读者}}
 - 希望的效果：{{更简洁 / 更专业 / 更口语 / 更有说服力 / 更温和}}
 - 保留要素：{{必须保留的信息、术语、数据}}
 - 字数要求：{{压缩到 X 字 / 不限}}
@@ -885,7 +885,7 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
 ## 翻译参数
 - 源语言 → 目标语言：{{中 → 英 / 英 → 中}}
 - 用途：{{产品文案 / 技术文档 / 营销物料 / 学术论文 / 邮件}}
-- 目标读者：{{}}
+- 目标读者：{{目标读者}}
 - 语气：{{正式 / 中性 / 亲切 / 幽默}}
 - 术语表：{{已有术语对照，无则写「无，请为我建立」}}
 
@@ -928,7 +928,7 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
 
 ## 邮件要素
 - 收件人：{{身份、与我的关系（上下级/客户/陌生合作方）}}
-- 我的身份：{{}}
+- 我的身份：{{我的身份}}
 - 目的：{{请求 / 通知 / 道歉 / 跟进 / 拒绝 / 感谢}}
 - 关键信息：{{必须传达的内容}}
 - 期望对方做的动作：{{明确动作与截止时间}}
@@ -983,11 +983,11 @@ lo-fi hip hop, nostalgic and warm, featuring dusty Rhodes piano, vinyl crackle a
 
 ## 场景设定
 - 情节功能：{{这个场景要推进什么，人物关系发生什么变化}}
-- 地点与时间：{{}}
-- 出场人物：{{}}（含各自当下的目的，目的之间要有冲突）
+- 地点与时间：{{地点与时间}}
+- 出场人物：{{出场人物}}（含各自当下的目的，目的之间要有冲突）
 - 视角：{{第一人称 / 第三人称限知 / 全知}}
-- 情绪基调：{{}}
-- 字数：{{}}
+- 情绪基调：{{情绪基调}}
+- 字数：{{字数}}
 
 ## 写作要求
 ### 1. 场景结构

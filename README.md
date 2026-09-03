@@ -19,45 +19,87 @@ npm run dev        # http://localhost:4173
 
 > 构建产物 `data/prompts.js` 已随仓库提交，直接双击 `index.html` 也能打开。
 
-## 如何新增一条提示词（核心维护方式）
+## 如何新增一条提示词
 
-1. 在 `prompts/<一级分类>/<二级分类>/` 下新建 `<slug>.md`，目录名必须使用 `taxonomy.js` 中定义的 id：
+三条途径，按场景选。**本质都一样：往 `prompts/<一级分类>/<二级分类>/` 加一个 `.md` 文件。**
 
-   ```
-   prompts/coding/refactor/my-new-prompt.md
-   ```
+### 途径 A · 命令行脚手架（推荐，本地）
 
-2. 文件格式 = YAML frontmatter + 正文（正文即提示词本身）：
+```bash
+npm run new
+```
 
-   ```markdown
-   ---
-   title: 提示词标题
-   summary: 一句话摘要（会显示在卡片上）
-   category: coding          # 一级分类 id
-   subcategory: refactor     # 二级分类 id
-   tags: [重构, 代码质量]
-   model: Claude / GPT-4o
-   level: 通用
-   featured: false
-   updated: 2026-09-04
-   ---
+交互式：列 12 大分类 → 选子分类 → 填标题 / slug / 摘要 / 标签 / 难度 / 模型，脚本自动建目录、生成带 frontmatter 的骨架文件，并校验分类合法、slug 不重复。
 
-   这里写提示词正文，支持 Markdown。
-   需要 {{用户填写}} 的地方用双花括号占位，前端会自动生成填写框。
-   ```
+也支持全参数非交互（适合脚本批量导入）：
 
-3. 构建并提交：
+```bash
+npm run new -- --cat coding --sub refactor --title "安全重构" \
+  --summary "在不改变行为的前提下重构" --slug safe-refactor \
+  --tags "重构,代码质量" --level 进阶 --model 通用
+```
 
-   ```bash
-   npm run build   # 重新生成 data/prompts.json / prompts.js
-   git add -A && git commit -m "feat: 新增 xxx 提示词" && git push
-   ```
+| 参数 | 说明 | 必填 |
+|---|---|---|
+| `--cat` | 一级分类 id（见 `taxonomy.js`） | ✅ |
+| `--sub` | 二级分类 id | ✅ |
+| `--title` | 中文标题 | ✅ |
+| `--summary` | 一句话摘要，显示在卡片上 | ✅ |
+| `--slug` | 英文文件名，也是 URL 片段，全库唯一 | 默认 `<子分类>-<序号>` |
+| `--tags` | 逗号分隔 | 默认子分类名 |
+| `--level` | 通用 / 进阶 / 专家 | 默认 进阶 |
+| `--model` | 适用模型 | 默认 通用 |
 
-   推送后 GitHub Actions 会自动重新部署，约 1 分钟生效。
+生成后：编辑正文 → `npm run build` → `npm run dev` 预览 → 提交。
+
+### 途径 B · 手工新建 Markdown 文件
+
+在 `prompts/<一级分类>/<二级分类>/` 下新建 `<slug>.md`，格式 = YAML frontmatter + 正文（正文即提示词本身）：
+
+```markdown
+---
+title: 提示词标题
+summary: 一句话摘要（会显示在卡片上）
+category: coding          # 一级分类 id
+subcategory: refactor     # 二级分类 id
+tags: [重构, 代码质量]
+model: 通用
+level: 进阶
+featured: false
+updated: 2026-09-04
+---
+
+这里写提示词正文，支持 Markdown。
+需要 {{用户填写}} 的地方用双花括号占位，前端会自动生成填写框。
+```
+
+> 正文里 `{{变量名}}` 会被识别为变量，详情页自动生成输入框，填完可一键复制成品。
+> **别写空的 `{{}}`** —— 那种不会被识别，复制出来也是噪音。
+
+写完 `npm run build` 提交即可。
+
+### 途径 C · GitHub 网页端（手机 / 临时电脑上也能加）
+
+1. 打开仓库 `prompts/` 对应目录 → **Add file → Create new file**
+2. 文件名填 `my-new-prompt.md`，内容按途径 B 的格式贴进去
+3. 底部 **Commit changes**
+
+GitHub Actions 会自动跑 `npm run build` 并部署，**同时把构建产物 `data/` 自动回写仓库**（带 `[skip ci]`，不会循环触发）。所以下次你在本地 `git pull` 就能拿到同步好的数据，无需手动重跑构建。
+
+---
+
+构建与提交（途径 A/B）：
+
+```bash
+npm run build   # 重新生成 data/prompts.json / prompts.js
+git add -A && git commit -m "feat: 新增 xxx 提示词" && git push
+```
+
+推送后约 1 分钟上线。
 
 ## 新增分类
 
-编辑根目录的 `taxonomy.js`（一级 + 二级分类的唯一真源），然后在 `prompts/` 下按对应 id 建目录即可。构建脚本会校验每条提示词的分类是否合法，不合法会报错退出。
+编辑根目录的 `taxonomy.js`（一级 + 二级分类的唯一真源），然后在 `prompts/` 下按对应 id 建目录即可。构建脚本会校验每条提示词的分类是否合法，不合法会在输出里给出警告。加完子分类再跑 `npm run new` 就能选到它。
 
 ## 目录结构
 
@@ -68,6 +110,9 @@ prompt-vault/
 │   ├── style.css           # 全部样式（含深色模式）
 │   └── app.js              # 前端逻辑（原生 JS，无依赖）
 ├── prompts/                # ★ 提示词真源，按 分类/子分类/ 组织
+├── tools/
+│   ├── new-prompt.mjs      # 新增提示词脚手架（npm run new）
+│   └── seed/               # 种子数据（一次性，可删）
 │   └── coding/refactor/*.md
 ├── data/
 │   ├── prompts.json        # 构建产物（API 形态）
