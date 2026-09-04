@@ -445,6 +445,8 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   border: 1px solid var(--border); border-radius: 7px; padding: 3px 9px;
 }
 .mchip b { color: var(--text); font-weight: 600; }
+.mchip-src { text-decoration: none; transition: .15s; }
+.mchip-src:hover { border-color: var(--c); color: var(--c); background: color-mix(in srgb, var(--c) 8%, transparent); }
 .dtl-act { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .btn-p {
   height: 36px; padding: 0 15px; border-radius: 10px; font-size: 13px; font-weight: 600;

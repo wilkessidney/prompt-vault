@@ -91,6 +91,9 @@
   function syncStar(btn, on) {
     btn.classList.toggle('on', on);
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    // 详情页的收藏按钮带文字标签，卡片上的只有图标（无 span）
+    var sp = btn.querySelector('span');
+    if (sp) sp.textContent = on ? '已收藏' : '收藏';
   }
 
   /* ------------------------------ 数据加载 ------------------------------ */
@@ -341,6 +344,7 @@
             (it.updated ? '<span class="mchip">更新 <b>' + esc(it.updated) + '</b></span>' : '') +
             '<span class="mchip">正文 <b>' + it.chars + '</b> 字</span>' +
             (it.variables.length ? '<span class="mchip">变量 <b>' + it.variables.length + '</b> 个</span>' : '') +
+            (it.source ? '<a class="mchip mchip-src" href="' + esc(it.source) + '" target="_blank" rel="noopener">原站与参考实现 <b>↗</b></a>' : '') +
           '</div>' +
           '<div class="dtl-act">' +
             '<button class="btn-p" data-act="copy-raw"><svg class="ic"><use href="#i-copy"/></svg><span>复制原文</span></button>' +

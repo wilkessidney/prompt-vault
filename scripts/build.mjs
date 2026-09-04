@@ -313,6 +313,7 @@ for (const file of files) {
     level: data.level || '通用',
     featured: data.featured === true,
     updated: data.updated || '',
+    source: data.source || '',
     chars: content.length,
     variables,
     inputs,
