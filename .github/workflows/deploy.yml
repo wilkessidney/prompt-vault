@@ -24,6 +24,11 @@ jobs:
           node-version: 24
       - name: Build
         run: node scripts/build.mjs
+      # 缓存破局：给 index.html 里的静态资源追加当前 commit hash 作为版本参数。
+      # GitHub Pages 对静态资源返回 max-age=600，改 CSS/JS 后浏览器在 10 分钟内
+      # 仍用旧缓存，导致"部署成功但用户看到旧版"。用 ?v=<sha> 强制 URL 变化即必刷新。
+      - name: Cache-bust asset URLs
+        run: node scripts/cache-bust.mjs
       # 注意：这里刻意「不」把构建产物 data/ 回写仓库。
       # data/ 是真源 prompts/*.md 的派生物，双向写入（本地 build 提交 + Actions 回写）
       # 必然产生冲突。线上部署用的是本次构建的 data，不受影响；
