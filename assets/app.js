@@ -317,7 +317,7 @@
     var q = state.q.trim().toLowerCase();
     var list = DATA.items.filter(function (it) {
       if (state.cat && it.category !== state.cat) return false;
-      if (state.sub && it.subcategory !== it.subcategory) return false;
+      if (state.sub && it.subcategory !== state.sub) return false;
       if (state.favOnly && !isFav(it.id)) return false;
       if (!q) return true;
       return match(it, q) > 0;
