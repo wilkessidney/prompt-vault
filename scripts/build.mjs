@@ -11,6 +11,7 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, mkdirSy
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { TAXONOMY } from '../taxonomy.js';
+import { I18N_CAT, I18N_SUB } from '../taxonomy.i18n.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, 'prompts');
@@ -320,6 +321,14 @@ for (const file of files) {
     choices,
     content,
     html: markdown(content),
+    // 多语种字段：zh 来自原 title/summary/content（早年是手工内化翻译），en 同步一份；
+    // 其他语种先空对象，由 translate.mjs 后续填充。
+    i18n: {
+      title:   { zh: data.title || slug, en: data.title || slug, ja: '', ko: '', es: '', fr: '', de: '', ru: '' },
+      summary: { zh: data.summary || '', en: data.summary || '', ja: '', ko: '', es: '', fr: '', de: '', ru: '' },
+      content: { zh: content,           en: content,           ja: '', ko: '', es: '', fr: '', de: '', ru: '' },
+      html:    { zh: markdown(content),  en: markdown(content), ja: '', ko: '', es: '', fr: '', de: '', ru: '' },
+    },
   });
 }
 
@@ -332,11 +341,17 @@ for (const it of items) {
 
 const taxonomy = TAXONOMY.map((c) => {
   const subs = c.subs
-    .map((s) => ({ id: s.id, name: s.name, count: counts.get(`${c.id}/${s.id}`) || 0 }))
+    .map((s) => ({
+      id: s.id,
+      name: s.name,
+      i18n: I18N_SUB[c.id] && I18N_SUB[c.id][s.id] ? I18N_SUB[c.id][s.id] : { zh: s.name, en: s.name, ja: '', ko: '', es: '', fr: '', de: '', ru: '' },
+      count: counts.get(`${c.id}/${s.id}`) || 0,
+    }))
     .filter((s) => s.count > 0);
   return {
     id: c.id,
     name: c.name,
+    i18n: I18N_CAT[c.id] || { zh: c.name, en: c.name, ja: '', ko: '', es: '', fr: '', de: '', ru: '' },
     icon: c.icon,
     color: c.color,
     desc: c.desc,

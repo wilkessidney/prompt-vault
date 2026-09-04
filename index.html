@@ -10,8 +10,6 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
-<!-- ============ SVG Sprite ============ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <g id="s"><symbol id="i-s" viewBox="0 0 24 24"><use href="#p"/></symbol></g>
@@ -54,22 +52,32 @@
 
     <a class="brand" href="#/" aria-label="回到首页">
       <span class="brand-mark"><svg class="ic"><use href="#i-sparkles"/></svg></span>
-      <span class="brand-txt">Prompt<b>Vault</b><em>提示词库</em></span>
+      <span class="brand-txt">Prompt<b>Vault</b><em data-i18n="lang.label">提示词库</em></span>
     </a>
 
     <div class="search" role="search">
       <svg class="ic search-ic"><use href="#i-search"/></svg>
-      <input id="q" type="search" placeholder="搜索标题、摘要、标签或正文…" autocomplete="off" spellcheck="false">
+      <input id="q" type="search" data-i18n-attr="placeholder|app.search-ph" autocomplete="off" spellcheck="false">
       <kbd class="kbd-hint">/</kbd>
-      <button class="search-clear" id="qClear" hidden aria-label="清空搜索"><svg class="ic"><use href="#i-close"/></svg></button>
+      <button class="search-clear" id="qClear" hidden aria-label="清空搜索" data-i18n-attr="aria-label|app.search-clear"><svg class="ic"><use href="#i-close"/></svg></button>
     </div>
 
     <div class="hdr-act">
-      <button class="chip-btn" id="favBtn" title="只看收藏">
-        <svg class="ic"><use href="#i-star"/></svg><span class="chip-btn-t">收藏 <b id="favCount">0</b></span>
+      <button class="chip-btn" id="favBtn" title="只看收藏" data-i18n-attr="title|app.fav-title">
+        <svg class="ic"><use href="#i-star"/></svg><span class="chip-btn-t" data-i18n-html="app.fav-on">收藏 <b id="favCount">0</b></span>
       </button>
-      <a class="icon-btn" id="ghLink" href="https://github.com/wilkessidney/prompt-vault" target="_blank" rel="noopener" aria-label="GitHub 仓库"><svg class="ic"><use href="#i-github"/></svg></a>
-      <button class="icon-btn" id="themeBtn" aria-label="切换主题"><svg class="ic"><use href="#i-moon"/></svg></button>
+
+      <!-- ============ 语言切换器 ============ -->
+      <div class="lang-pick" id="langPick">
+        <button class="icon-btn lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" title="切换语言" data-i18n-attr="title|lang.label">
+          <span class="lang-flag" id="langFlag">🇨🇳</span>
+          <span class="lang-code" id="langCode">ZH</span>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="listbox" hidden></ul>
+      </div>
+
+      <a class="icon-btn" id="ghLink" href="https://github.com/wilkessidney/prompt-vault" target="_blank" rel="noopener" aria-label="GitHub 仓库" data-i18n-attr="aria-label|app.gh"><svg class="ic"><use href="#i-github"/></svg></a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题" data-i18n-attr="aria-label|app.toggle-theme"><svg class="ic"><use href="#i-moon"/></svg></button>
     </div>
   </div>
 </header>
@@ -80,13 +88,13 @@
 
   <aside class="side" id="side">
     <div class="side-top">
-      <span class="side-title">分类导航</span>
-      <button class="side-reset" id="resetBtn">重置</button>
+      <span class="side-title" data-i18n="side.title">分类导航</span>
+      <button class="side-reset" id="resetBtn" data-i18n="side.reset">重置</button>
     </div>
     <nav class="tree" id="tree" aria-label="分类导航"></nav>
     <div class="side-foot">
-      <a href="#/" id="totalLink">共 <b id="totalCount">0</b> 条提示词</a>
-      <span class="side-note">数据由 <code>prompts/</code> 构建生成</span>
+      <a href="#/" id="totalLink" data-i18n-html="side.total-a"><span>共 </span><b id="totalCount">0</b><span data-i18n="side.total-b"> 条提示词</span></a>
+      <span class="side-note" data-i18n="side.note">数据由 <code>prompts/</code> 构建生成</span>
     </div>
   </aside>
 
@@ -95,13 +103,13 @@
     <section id="viewHome">
       <div class="hero" id="hero">
         <div class="hero-txt">
-          <span class="hero-kicker"><i></i>结构化 · 可维护 · 一键复制</span>
-          <h1>把好用的提示词<br>存成一个<em>能查得到的库</em></h1>
-          <p class="hero-sub">覆盖代码、绘图、写作、研究、产品、商业等 12 大领域。每条提示词都带分类标签、变量占位与完整说明，复制即用。</p>
+          <span class="hero-kicker" data-i18n="hero.kicker"><i></i>结构化 · 可维护 · 一键复制</span>
+          <h1><span data-i18n="hero.h1-a">把好用的提示词</span><br><span data-i18n="hero.h1-tail">存成一个</span><em data-i18n="hero.h1-em">能查得到的库</em></h1>
+          <p class="hero-sub" data-i18n="hero.sub">覆盖代码、绘图、写作、研究、产品、商业等 12 大领域。每条提示词都带分类标签、变量占位与完整说明，复制即用。</p>
           <div class="hero-stats">
-            <div class="stat"><b id="sTotal">0</b><span>条提示词</span></div>
-            <div class="stat"><b id="sCat">0</b><span>个大类</span></div>
-            <div class="stat"><b id="sSub">0</b><span>个子分类</span></div>
+            <div class="stat"><b id="sTotal">0</b><span data-i18n="hero.stat-prompt">条提示词</span></div>
+            <div class="stat"><b id="sCat">0</b><span data-i18n="hero.stat-cat">个大类</span></div>
+            <div class="stat"><b id="sSub">0</b><span data-i18n="hero.stat-sub">个子分类</span></div>
           </div>
         </div>
         <div class="hero-art" aria-hidden="true">
@@ -117,17 +125,17 @@
 
       <div class="toolbar">
         <div class="tool-l">
-          <h2 id="resultTitle" class="res-title">全部提示词</h2>
-          <span class="res-count" id="resCount">0 条</span>
+          <h2 id="resultTitle" class="res-title" data-i18n="toolbar.all">全部提示词</h2>
+          <span class="res-count" id="resCount">0 <span data-i18n="tag.item">条</span></span>
         </div>
         <div class="tool-r">
           <label class="sel">
             <svg class="ic"><use href="#i-sliders"/></svg>
             <select id="sortSel">
-              <option value="updated">最近更新</option>
-              <option value="title">标题 A→Z</option>
-              <option value="cat">按分类</option>
-              <option value="chars">内容长度</option>
+              <option value="updated" data-i18n="sort.updated">最近更新</option>
+              <option value="title" data-i18n="sort.title">标题 A→Z</option>
+              <option value="cat" data-i18n="sort.cat">按分类</option>
+              <option value="chars" data-i18n="sort.chars">内容长度</option>
             </select>
           </label>
         </div>
@@ -136,9 +144,9 @@
       <div id="grid" class="grid"></div>
       <div id="empty" class="empty" hidden>
         <svg class="ic"><use href="#i-inbox"/></svg>
-        <p>没有匹配的提示词</p>
-        <span id="emptyHint">试试换个关键词，或清空筛选条件</span>
-        <button class="btn btn-ghost" id="emptyReset">清空筛选</button>
+        <p data-i18n="empty.title">没有匹配的提示词</p>
+        <span id="emptyHint" data-i18n="empty.hint">试试换个关键词，或清空筛选条件</span>
+        <button class="btn btn-ghost" id="emptyReset" data-i18n="empty.reset">清空筛选</button>
       </div>
     </section>
 
@@ -149,15 +157,16 @@
 
 <footer class="foot">
   <div class="foot-in">
-    <span>PromptVault · 个人提示词库</span>
+    <span data-i18n="meta.footer-brand">PromptVault · 个人提示词库</span>
     <span class="dot-sep">·</span>
-    <span>新增提示词：在 <code>prompts/&lt;分类&gt;/&lt;子分类&gt;/</code> 下加一个 <code>.md</code>，然后 <code>npm run build</code></span>
+    <span data-i18n="meta.footer-add">新增提示词：在 <code>prompts/&lt;分类&gt;/&lt;子分类&gt;/</code> 下加一个 <code>.md</code>，然后 <code>npm run build</code></span>
   </div>
 </footer>
 
 <div class="toasts" id="toasts"></div>
 
 <script src="data/prompts.js"></script>
+<script src="assets/i18n.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
