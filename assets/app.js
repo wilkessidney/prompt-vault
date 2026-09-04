@@ -691,18 +691,33 @@
       }
     });
 
-    document.addEventListener('keydown', function (e) {
-      // ... 快捷键部分保留略
+    // 卡片打开详情（点击卡片非按钮区域 / Enter / 空格）
+    $('#grid').addEventListener('click', function (e) {
+      var card = e.target.closest('.card');
+      if (!card || e.target.closest('[data-act]')) return;
+      go('#/p/' + encodeURIComponent(card.dataset.id));
+    });
+    $('#grid').addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var card = e.target.closest('.card');
+      if (!card) return;
+      e.preventDefault();
+      go('#/p/' + encodeURIComponent(card.dataset.id));
     });
 
     /* —— 快捷键 —— */
     document.addEventListener('keydown', function (e) {
       var typing = document.activeElement && /input|textarea|select/i.test(document.activeElement.tagName || '');
+      if ((e.key === '/' && !typing) || ((e.metaKey || e.ctrlKey) && e.key === 'k')) {
+        e.preventDefault();
+        $('#q').focus();
+        $('#q').select();
+        return;
+      }
       if (typing) {
         if (e.key === 'Escape') document.activeElement.blur();
         return;
       }
-      if (e.key === '/') { e.preventDefault(); $('#q').focus(); return; }
       if (e.key === 'Escape') {
         if (state.view === 'detail') { go(homeHash()); return; }
         if ($('#scrim') && !$('#scrim').hidden) closeDrawer();
