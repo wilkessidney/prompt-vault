@@ -605,6 +605,8 @@
 
   function bind() {
     var q = $('#q');
+    // hash 路由监听：点击分类/子分类/卡片改变 location.hash 后由此触发重渲
+    window.addEventListener('hashchange', route);
     q.addEventListener('input', debounce(function () {
       state.q = q.value;
       $('#qClear').hidden = !q.value;
