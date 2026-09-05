@@ -2,7 +2,7 @@
 
 一个**零依赖、纯静态**的个人提示词库：Markdown 写提示词 → 一条命令构建 → GitHub Pages 自动上线。
 
-- 🗂 **13 大分类 / 102 个子分类**（359 条提示词，子分类 100% 有内容），树状导航 + 顶部快速切换
+- 🗂 **14 大分类 / 106 个子分类**（983 条提示词，子分类 100% 有内容），树状导航 + 顶部快速切换
 - 🎨 **UI 组件 268 条**：首屏 / 导航 / 表单 / 面板 / 定价 / 图表等前端组件生成提示词，见下方「UI 组件分类」
 - 🔍 **全文检索**（标题 / 摘要 / 标签 / 正文），支持关键词高亮
 - 📋 **一键复制**，卡片上直接复制，详情页可复制原文 / 填充版 / 链接 / 下载 .md
@@ -144,6 +144,104 @@ npm run build
 ```
 
 中文元数据在 `tools/import-vibeprompts/meta/*.mjs`（按 slug 索引）。新增抓取条目时补上对应的中文标题 / 摘要 / 标签即可；`raw.json` 已剥离参考实现代码（0.26 MB），需要时重跑 `crawl.mjs`。
+
+## 收编为我所用（私有化 / 嵌入 / 复用）
+
+本库不只是「看」，更可以整个收编成你自己的工具。按收编程度从浅到深有四种形态，取你需要的即可。
+
+> 前提：本仓库 MIT 协议，可任意复制、修改、闭源、商用，只需保留版权声明（见 `LICENSE`）。
+
+### 形态一 · 整体收编为私有库（最彻底）
+
+把整个仓库变成你自己的提示词管理站，内容全换成你自己的。
+
+1. **拿到代码**
+   - 想保留 Git 历史与一键部署：GitHub 上 **Fork**（设成私有仓库）→ `git clone` 你的 fork。
+   - 只想纯本地用、不联网：`git clone` 后删掉 `.git`，或直接从仓库下载 ZIP 解压。
+2. **改站点名**（可选）
+   - 站内标题在 `index.html` 第 6 行的 `<title>` 与第 7 行的 `meta description`，改成你的库名即可。
+   - 顶部品牌字（如有）在 `index.html` 与 `assets/app.js` 渲染处，全局搜索 `PromptVault` 替换。
+3. **换成你的提示词**
+   - 删除 `prompts/` 下默认的目录内容，按 `taxonomy.js` 的分类按需新建，或增删分类（见上文「新增分类」）。
+   - 已有大量提示词想批量导入？用 `npm run new -- --cat ... --sub ...`（途径 A 非交互模式）写个小脚本遍历导入，比手工快。
+4. **托管方式（三选一）**
+   | 方式 | 适用 | 怎么做 |
+   |---|---|---|
+   | **纯本地离线** | 个人单机、最省事 | 直接双击 `index.html`。`data/prompts.js` 已随仓库提交，`file://` 下无需任何服务器，断网也能用。**零成本收编首选。** |
+   | **Cloudflare Pages / Vercel / Netlify** | 想私有 + 云端可访问 | 连你的私有仓，构建命令填 `node scripts/build.mjs`，发布目录填仓库根。三家免费额度都够。 |
+   | **GitHub Pages（公开）** | 接受公开 | 维持现状，push 即上线。注意免费账户 Pages 需公开仓库。 |
+
+   > 私有又想用 GitHub Pages？把仓库升级到含 Pages 的付费计划，或在 `Settings → Pages → Visibility` 设为私有（Team / Enterprise 支持）。
+
+### 形态二 · 作为数据源嵌入自己的产品
+
+`data/prompts.json` 是标准 JSON，任何语言、任何框架都能直接消费——适合把提示词库做成你自己产品里的一个模块（例如在 polymarket.fans 里嵌一个「提示词面板」）。
+
+```js
+// 浏览器 / Node 前端
+const res = await fetch('/data/prompts.json');
+const { meta, taxonomy, items } = await res.json();
+// items: [{ id, title, summary, category, subcategory, tags,
+//           content,        // 原始 Markdown 正文（即提示词本身）
+//           html,           // 已渲染好的 HTML，可直接 innerHTML
+//           variables, inputs, choices, i18n, ... }]
+const byId = Object.fromEntries(items.map((i) => [i.id, i]));
+console.log(byId['project/template/complete-project-dev'].content);
+```
+
+```python
+# 后端 / 脚本（Python）
+import json
+data = json.load(open('data/prompts.json', encoding='utf-8'))
+for it in data['items']:
+    if it['category'] == 'project':
+        print(it['title'], '→', it['content'][:80])
+```
+
+- 字段契约见 `scripts/build.mjs` 末尾的 `payload` 结构（`meta` / `taxonomy` / `items` 三层）。
+- 想实时跟仓库同步：把 `data/prompts.json` 放到你产品的 CDN 定时拉取；或 fork 后监听 push Webhook 触发你侧重建。
+
+### 形态三 · 抽取单条进系统提示词 / Agent
+
+最轻量的收编：把某条提示词直接当成你 Agent 的「Spec 生成器」或「系统提示词」。
+
+1. 打开对应 `prompts/<分类>/<子分类>/<slug>.md`，复制正文即可。
+2. 正文里的 `{{变量}}` 在你代码里做模板替换后再发给模型：
+
+   ```js
+   const fill = (tpl, vars) =>
+     tpl.replace(/\{\{([^}]+)\}\}/g, (_, k) => vars[k.trim()] ?? `{{${k.trim()}}}`);
+   const spec = fill(projectTemplate, { 项目类型: 'OKX 套利监控', 技术栈: 'Python' });
+   ```
+
+   ```python
+   import re
+   def fill(tpl, vars):
+       return re.sub(r'\{\{([^}]+)\}\}', lambda m: str(vars.get(m.group(1).strip(), m.group(0))), tpl)
+   spec = fill(project_template, {'项目类型': 'OKX 套利监控'})
+   ```
+
+3. 典型用法：把 `project/template/complete-project-dev` 那条「完整项目开发模板」直接塞进 Codex / 任意 Agent 的 system prompt，让它每次都按 23 模块结构产出规格，而不是想到哪写到哪。
+
+### 形态四 · 复用构建管线与分类法
+
+如果你还有别的知识要「成体系管理」（技术文档库、SOP 库、合规条款库……），直接搬这套零依赖模式：
+
+- `scripts/build.mjs`：Markdown → JSON 的纯 Node 构建器（约 390 行，零 npm 依赖），改下读取目录即可复用。
+- `taxonomy.js` + `taxonomy.i18n.js`：分类体系的「单一真源」模式，前端导航、构建校验、i18n 都从它派生。
+- `tools/enrich/meta/*.mjs` + `build.mjs`：用结构化 JS 模块当「真源」再生成 Markdown 的双轨写法，适合大批量、需程序校验的内容。
+- `index.html` + `assets/`：一个零依赖、可离线、带检索 / 复制 / 变量填充的前端壳，换数据源就能当任意知识库界面。
+
+> 这套组合的核心优势：**零依赖、可离线、派生产物唯一写入方（本地 build 提交、CI 不回写）**，长期维护不掉链子。
+
+### 收编自检清单
+
+- [ ] 决定形态：私有库 / 数据源 / 单条抽取 / 复用管线（可多选）
+- [ ] 克隆或下载代码，确认能 `npm run build` + 双击 `index.html` 打开
+- [ ] 如需私有托管，配好 Cloudflare Pages / Vercel 或纯本地 `file://`
+- [ ] 替换品牌名（`index.html` 的 title / description）与默认提示词内容
+- [ ] 确认 `data/prompts.json` 字段满足你下游消费方式
+- [ ] （可选）把「项目开发」模板族作为你 Agent 的规格生成器接进去
 
 ## 目录结构
 
