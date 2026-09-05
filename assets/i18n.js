@@ -60,7 +60,7 @@
     /* —— sort —— */
     'sort.updated':        '最近更新',
     'sort.title':          '标题 A→Z',
-    'sort.cat':            '按分类',
+    'sort.cat':            '按子分类',
     'sort.chars':          '内容长度',
     /* —— 卡片 —— */
     'card.vars':           ' 变量',
@@ -147,7 +147,7 @@
     'toolbar.search-suffix': '"',
     'sort.updated':        'Recently updated',
     'sort.title':          'Title A→Z',
-    'sort.cat':            'By category',
+    'sort.cat':            'By subcategory',
     'sort.chars':          'By length',
     'card.vars':           ' vars',
     'card.chars':          ' ch',
@@ -228,7 +228,7 @@
     'toolbar.search-suffix': '',
     'sort.updated':        '更新が新しい順',
     'sort.title':          'タイトル A→Z',
-    'sort.cat':            'カテゴリ順',
+    'sort.cat':            'サブカテゴリ順',
     'sort.chars':          '文字数順',
     'card.vars':           ' 変数',
     'card.chars':          ' 字',

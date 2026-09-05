@@ -510,6 +510,7 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   display: inline-flex; align-items: center; gap: 7px; color: #fff;
   background: linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 62%, #000));
   box-shadow: 0 4px 14px color-mix(in srgb, var(--c) 32%, transparent); transition: .16s var(--ease);
+  white-space: nowrap;
 }
 .btn-p:hover { transform: translateY(-1px); box-shadow: 0 6px 20px color-mix(in srgb, var(--c) 42%, transparent); }
 .btn-p.done { background: var(--ok); box-shadow: 0 4px 14px rgba(22, 163, 74, .3); }
@@ -517,6 +518,7 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   height: 36px; padding: 0 14px; border-radius: 10px; font-size: 13px; font-weight: 550;
   display: inline-flex; align-items: center; gap: 7px; color: var(--text-2);
   background: var(--surface); border: 1px solid var(--border); transition: .16s var(--ease);
+  white-space: nowrap;
 }
 .btn-s:hover { border-color: var(--border-2); color: var(--text); background: var(--surface-3); }
 .btn-s.on { color: #f59e0b; border-color: rgba(245, 158, 11, .4); background: rgba(245, 158, 11, .1); }
@@ -699,7 +701,7 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   .quickbar { padding: 14px 14px 12px; }
   .toolbar { padding: 2px 14px 14px; margin-bottom: 0; }
   .grid { grid-template-columns: 1fr; padding: 0 14px; gap: 12px; }
-  .dtl-head, .dtl-body { padding: 18px 16px; border-radius: 0; border-left: none; border-right: none; }
+  .dtl-head, .dtl-body { padding: 18px 16px; border-radius: 0; border-left: none; border-right: none; overflow: visible; width: 100%; }
   .dtl-head h1 { font-size: 19px; }
   .foot-in { padding: 18px 14px; }
 }
@@ -718,7 +720,12 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   .toolbar { flex-direction: column; align-items: flex-start; gap: 9px; }
   .toasts { bottom: 14px; width: calc(100% - 28px); }
   .toast { width: 100%; justify-content: center; }
-  .dtl-act .btn-p, .dtl-act .btn-s { flex: 1; justify-content: center; }
+  .dtl-act { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; width: 100%; }
+  .dtl-act .btn-p { grid-column: span 3; display: flex; justify-content: center; padding: 0 8px; height: 36px; font-size: 12.5px; gap: 6px; min-width: 0; overflow: hidden; }
+  .dtl-act .btn-s { grid-column: span 2; display: flex; justify-content: center; padding: 0 4px; height: 34px; font-size: 12px; gap: 4px; min-width: 0; overflow: hidden; }
+  .dtl-act .btn-p span, .dtl-act .btn-s span { display: inline-block; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .dtl-act .btn-p .ic { width: 16px; height: 16px; }
+  .dtl-act .btn-s .ic { width: 15px; height: 15px; }
 }
 
 @media (max-width: 400px) {

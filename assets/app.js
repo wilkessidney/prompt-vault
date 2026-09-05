@@ -15,7 +15,7 @@
   var LANG_KEY = 'pv.lang';
   var I18N = window.__PV_I18N__ || { LANGS: {}, t: function (k) { return k; }, DEFAULT: 'zh' };
 
-  var state = { q: '', cat: '', sub: '', sort: 'updated', favOnly: false, view: 'home', id: '', quickExpanded: false };
+  var state = { q: '', cat: '', sub: '', sort: 'cat', favOnly: false, view: 'home', id: '', quickExpanded: false };
   var favs = load(FAV_KEY, []);
   var currentLang = load(LANG_KEY, I18N.DEFAULT);
 
@@ -350,7 +350,11 @@
       if (s === 'title') return pick(a, 'title').localeCompare(pick(b, 'title'), currentLang === 'zh' ? 'zh' : currentLang);
       if (s === 'chars') return b.chars - a.chars;
       if (s === 'cat') {
-        var d = pickCat(a.category).localeCompare(pickCat(b.category), currentLang === 'zh' ? 'zh' : currentLang);
+        var subA = pickSub(a.category, a.subcategory);
+        var subB = pickSub(b.category, b.subcategory);
+        var d = subA.localeCompare(subB, currentLang === 'zh' ? 'zh' : currentLang);
+        if (d) return d;
+        d = pickCat(a.category).localeCompare(pickCat(b.category), currentLang === 'zh' ? 'zh' : currentLang);
         return d || pick(a, 'title').localeCompare(pick(b, 'title'), currentLang === 'zh' ? 'zh' : currentLang);
       }
       return (b.updated || '').localeCompare(a.updated || '');
@@ -388,6 +392,7 @@
   function renderHome() {
     $('#viewDetail').hidden = true;
     $('#viewHome').hidden = false;
+    $('#sortSel').value = state.sort;
 
     var filtering = !!(state.q.trim() || state.cat || state.favOnly);
     $('#hero').style.display = filtering ? 'none' : '';
