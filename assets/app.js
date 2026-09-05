@@ -647,42 +647,42 @@
     $('#scrim').addEventListener('click', closeDrawer);
 
     document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-act]');
-      if (!t) return;
-      var act = t.dataset.act;
+      var el = e.target.closest('[data-act]');
+      if (!el) return;
+      var act = el.dataset.act;
 
       if (act === 'toggle-cat') {
-        var g = t.closest('.tg');
+        var g = el.closest('.tg');
         var open = g.classList.toggle('open');
-        if (open && state.cat !== t.dataset.cat) go('#/c/' + t.dataset.cat);
+        if (open && state.cat !== el.dataset.cat) go('#/c/' + el.dataset.cat);
         else if (!open) g.classList.remove('open');
         return;
       }
       if (act === 'sub') {
-        var cat = t.dataset.cat || '';
-        var sub = t.dataset.sub || '';
+        var cat = el.dataset.cat || '';
+        var sub = el.dataset.sub || '';
         state.favOnly = false;
         closeDrawer();
         go(cat ? '#/c/' + cat + (sub ? '/' + sub : '') : '#/');
         return;
       }
-      if (act === 'fav') { e.stopPropagation(); toggleFav(t.dataset.id); return; }
+      if (act === 'fav') { e.stopPropagation(); toggleFav(el.dataset.id); return; }
       if (act === 'copy') {
         e.stopPropagation();
-        var it0 = byId(t.dataset.id);
-        copy(pick(it0, 'content') || it0.content, t);
+        var it0 = byId(el.dataset.id);
+        copy(pick(it0, 'content') || it0.content, el);
         return;
       }
-      if (act === 'open') { go('#/p/' + encodeURIComponent(t.dataset.id)); return; }
+      if (act === 'open') { go('#/p/' + encodeURIComponent(el.dataset.id)); return; }
       if (act === 'back') { history.length > 1 ? history.back() : go('#/'); return; }
-      if (act === 'copy-raw') { var it1 = current(); copy(pick(it1, 'content') || it1.content, t, t('toast.copy-raw')); return; }
+      if (act === 'copy-raw') { var it1 = current(); copy(pick(it1, 'content') || it1.content, el, t('toast.copy-raw')); return; }
       if (act === 'copy-filled') {
         var it2 = current();
         var f = collectVars();
-        copy(fillText(it2, f), t, t('toast.copy-filled'));
+        copy(fillText(it2, f), el, t('toast.copy-filled'));
         return;
       }
-      if (act === 'copy-link') { copy(location.href, t, t('toast.copy-link')); return; }
+      if (act === 'copy-link') { copy(location.href, el, t('toast.copy-link')); return; }
       if (act === 'download') {
         var it3 = current();
         download(it3.slug + '.md', fm(it3));
