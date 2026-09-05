@@ -656,7 +656,7 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
     transform: translateX(-102%); transition: transform .26s var(--ease);
   }
   .side.open { transform: none; box-shadow: var(--sh-3); }
-  .scrim {
+  .scrim:not([hidden]) {
     display: block; position: fixed; inset: var(--hdr-h) 0 0; z-index: 80;
     background: rgba(10, 12, 20, .42); backdrop-filter: blur(2px);
   }
