@@ -102,8 +102,6 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 }
 .hdr-left { display: flex; align-items: center; gap: 10px; flex: none; }
 .hdr-set { display: flex; align-items: center; gap: 6px; }
-/* 语言按钮在 header 左侧时，菜单向左展开避免超出视口 */
-.hdr-set .lang-menu { left: 0; right: auto; }
 .brand { display: flex; align-items: center; gap: 9px; margin-right: 4px; flex: none; }
 .brand-mark {
   width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
@@ -119,15 +117,15 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 }
 
 .search {
-  position: relative; flex: 1; max-width: 460px; display: flex; align-items: center;
-  background: var(--surface-3); border: 1px solid transparent; border-radius: 10px;
-  padding: 0 10px; height: 38px; transition: border-color .18s, background .18s, box-shadow .18s;
+  position: relative; flex: 1; max-width: 360px; display: flex; align-items: center;
+  background: var(--surface-3); border: 1px solid transparent; border-radius: 9px;
+  padding: 0 9px; height: 34px; transition: border-color .18s, background .18s, box-shadow .18s;
 }
 .search:focus-within {
   background: var(--surface); border-color: var(--accent);
   box-shadow: 0 0 0 3.5px var(--accent-soft);
 }
-.search-ic { width: 16px; height: 16px; color: var(--text-3); }
+.search-ic { width: 15px; height: 15px; color: var(--text-3); }
 .search input {
   flex: 1; min-width: 0; height: 100%; border: none; background: none; outline: none;
   padding: 0 8px; font-size: 13.5px;

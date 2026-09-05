@@ -57,7 +57,17 @@
         <span class="brand-txt">Prompt<b>Vault</b><em data-i18n="lang.label">提示词库</em></span>
       </a>
 
-      <!-- 语言 / GitHub / 主题：顶部设置入口，移动端与桌面端均常驻显示 -->
+    </div>
+
+    <div class="search" role="search">
+      <svg class="ic search-ic"><use href="#i-search"/></svg>
+      <input id="q" type="search" placeholder="" autocomplete="off" spellcheck="false">
+      <kbd class="kbd-hint">/</kbd>
+      <button class="search-clear" id="qClear" hidden aria-label="清空搜索" data-i18n-attr="aria-label|app.search-clear"><svg class="ic"><use href="#i-close"/></svg></button>
+    </div>
+
+    <div class="hdr-act">
+      <!-- 语言 / GitHub / 主题：顶部设置入口，统一放在右侧 -->
       <div class="hdr-set">
         <div class="lang-pick" id="langPick">
           <button class="icon-btn lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" title="切换语言" data-i18n-attr="title|lang.label">
@@ -70,16 +80,7 @@
         <a class="icon-btn" id="ghLink" href="https://github.com/wilkessidney/prompt-vault" target="_blank" rel="noopener" aria-label="GitHub 仓库" data-i18n-attr="aria-label|app.gh"><svg class="ic"><use href="#i-github"/></svg></a>
         <button class="icon-btn" id="themeBtn" aria-label="切换主题" data-i18n-attr="aria-label|app.toggle-theme"><svg class="ic"><use href="#i-moon"/></svg></button>
       </div>
-    </div>
 
-    <div class="search" role="search">
-      <svg class="ic search-ic"><use href="#i-search"/></svg>
-      <input id="q" type="search" data-i18n-attr="placeholder|app.search-ph" autocomplete="off" spellcheck="false">
-      <kbd class="kbd-hint">/</kbd>
-      <button class="search-clear" id="qClear" hidden aria-label="清空搜索" data-i18n-attr="aria-label|app.search-clear"><svg class="ic"><use href="#i-close"/></svg></button>
-    </div>
-
-    <div class="hdr-act">
       <button class="chip-btn" id="favBtn" title="只看收藏" data-i18n-attr="title|app.fav-title">
         <svg class="ic"><use href="#i-star"/></svg><span class="chip-btn-t" data-i18n-html="app.fav-on">收藏 <b id="favCount">0</b></span>
       </button>
