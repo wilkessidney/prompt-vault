@@ -107,6 +107,7 @@
     renderLangMenu();
     renderTree();
     renderQuick();
+    renderStats();
     if (state.view === 'detail') showDetail(state.id);
     else renderHome();
   }
@@ -224,6 +225,16 @@
     var n = $('#favCount');
     if (n) n.textContent = favs.length;
     $('#favBtn').classList.toggle('on', state.favOnly);
+  }
+
+  function renderStats() {
+    if (!DATA || !DATA.meta) return;
+    var m = DATA.meta;
+    var sTotal = $('#sTotal'), sCat = $('#sCat'), sSub = $('#sSub'), totalCount = $('#totalCount');
+    if (sTotal) sTotal.textContent = m.count;
+    if (sCat) sCat.textContent = m.categories;
+    if (sSub) sSub.textContent = m.subcategories;
+    if (totalCount) totalCount.textContent = m.count;
   }
 
   /* ------------------------------ 侧栏分类树 ------------------------------ */
@@ -784,6 +795,7 @@
     // 让 doc.lang 一开始就是用户上次的选择
     document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : currentLang;
     applyStaticI18n();
+    renderStats();
     renderLangFlag();
     renderLangMenu();
     renderFavCount();
