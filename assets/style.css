@@ -117,30 +117,31 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 }
 
 .search {
-  position: relative; flex: 1; max-width: 360px; display: flex; align-items: center;
-  background: var(--surface-3); border: 1px solid transparent; border-radius: 9px;
-  padding: 0 9px; height: 34px; transition: border-color .18s, background .18s, box-shadow .18s;
+  position: relative; flex: 1; max-width: 200px; display: flex; align-items: center;
+  background: var(--surface-3); border: 1px solid transparent; border-radius: 8px;
+  padding: 0 7px; height: 32px; transition: border-color .18s, background .18s, box-shadow .18s, max-width .2s var(--ease);
 }
 .search:focus-within {
   background: var(--surface); border-color: var(--accent);
   box-shadow: 0 0 0 3.5px var(--accent-soft);
+  max-width: 280px;
 }
-.search-ic { width: 15px; height: 15px; color: var(--text-3); }
+.search-ic { width: 14px; height: 14px; color: var(--text-3); }
 .search input {
   flex: 1; min-width: 0; height: 100%; border: none; background: none; outline: none;
-  padding: 0 8px; font-size: 13.5px;
+  padding: 0 6px; font-size: 13px;
 }
 .search input::placeholder { color: var(--text-3); }
 .search input::-webkit-search-cancel-button { display: none; }
 .kbd-hint {
-  font-family: inherit; font-size: 11px; color: var(--text-3);
-  border: 1px solid var(--border-2); border-radius: 5px; padding: 1px 6px; line-height: 1.5;
+  font-family: inherit; font-size: 10px; color: var(--text-3);
+  border: 1px solid var(--border-2); border-radius: 4px; padding: 1px 5px; line-height: 1.4;
   background: var(--surface);
 }
 .search:focus-within .kbd-hint { display: none; }
-.search-clear { display: grid; place-items: center; color: var(--text-3); border-radius: 6px; padding: 3px; }
+.search-clear { display: grid; place-items: center; color: var(--text-3); border-radius: 6px; padding: 2px; }
 .search-clear:hover { color: var(--text); background: var(--bg-soft); }
-.search-clear .ic { width: 14px; height: 14px; }
+.search-clear .ic { width: 13px; height: 13px; }
 
 .hdr-act { display: flex; align-items: center; gap: 6px; margin-left: auto; flex: none; }
 
@@ -669,10 +670,18 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   :root { --hdr-h: 54px; }
   .hdr { transition: transform .22s var(--ease); }
   .hdr.hide { transform: translateY(-100%); }
-  .hdr-in { padding: 0 12px; gap: 9px; }
+  .hdr-in { padding: 0 10px; gap: 8px; }
   .hdr-left { flex: none; }
-  .hdr-act { gap: 3px; margin-left: auto; }
-  .search { flex: 1; max-width: none; }
+  .brand-txt { display: none; }
+  .icon-btn, .lang-btn { width: 30px; height: 30px; }
+  .chip-btn { height: 30px; padding: 0 8px; }
+  .chip-btn .ic { width: 14px; height: 14px; }
+  .hdr-set { gap: 1px; }
+  .hdr-act { gap: 2px; margin-left: auto; }
+  .search { flex: 1; max-width: 90px; height: 30px; padding: 0 6px; }
+  .search:focus-within { max-width: 220px; }
+  .search-ic { width: 13px; height: 13px; }
+  .search input { padding: 0 5px; font-size: 12.5px; }
   .side {
     position: fixed; z-index: 90; top: var(--hdr-h); left: 0; bottom: 0; width: 276px;
     max-height: none; border-radius: 0; border-left: none; border-top: none;
@@ -683,9 +692,7 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
     display: block; position: fixed; inset: var(--hdr-h) 0 0; z-index: 80;
     background: rgba(10, 12, 20, .42); backdrop-filter: blur(2px);
   }
-  .brand-txt em { display: none; }
   .chip-btn-t { display: none; }
-  .chip-btn { padding: 0 9px; }
   .hero { padding: 26px 20px; border-radius: 0; border-left: none; border-right: none; margin-bottom: 0; }
   .hero-sub { max-width: 42ch; }
   .main { padding-top: 0; }
@@ -697,8 +704,13 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   .foot-in { padding: 18px 14px; }
 }
 @media (max-width: 560px) {
-  .hdr-in { padding: 0 12px; gap: 9px; }
+  .hdr-in { padding: 0 10px; gap: 7px; }
   .hdr-left { gap: 6px; }
+  .hdr-set { gap: 1px; }
+  .hdr-act { gap: 2px; }
+  .search { max-width: 80px; padding: 0 5px; }
+  .search-ic { width: 12px; height: 12px; }
+  .search input { padding: 0 4px; font-size: 12px; }
   .hdr-set .lang-code { display: none; }
   .kbd-hint { display: none; }
   .hero-stats { gap: 18px; }
