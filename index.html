@@ -48,12 +48,28 @@
 <!-- ============ Header ============ -->
 <header class="hdr">
   <div class="hdr-in">
-    <button class="icon-btn only-mobile" id="menuBtn" aria-label="打开分类"><svg class="ic"><use href="#i-menu"/></svg></button>
+    <div class="hdr-left">
+      <button class="icon-btn only-mobile" id="menuBtn" aria-label="打开分类"><svg class="ic"><use href="#i-menu"/></svg></button>
 
-    <a class="brand" href="#/" aria-label="回到首页">
-      <span class="brand-mark"><svg class="ic"><use href="#i-sparkles"/></svg></span>
-      <span class="brand-txt">Prompt<b>Vault</b><em data-i18n="lang.label">提示词库</em></span>
-    </a>
+      <a class="brand" href="#/" aria-label="回到首页">
+        <span class="brand-mark"><svg class="ic"><use href="#i-sparkles"/></svg></span>
+        <span class="brand-txt">Prompt<b>Vault</b><em data-i18n="lang.label">提示词库</em></span>
+      </a>
+
+      <!-- 语言 / GitHub / 主题 在移动端放到左侧白色区域，与电脑端一致均为顶部设置项 -->
+      <div class="hdr-set">
+        <div class="lang-pick" id="langPick">
+          <button class="icon-btn lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" title="切换语言" data-i18n-attr="title|lang.label">
+            <span class="lang-flag" id="langFlag">🇨🇳</span>
+            <span class="lang-code" id="langCode">ZH</span>
+          </button>
+          <ul class="lang-menu" id="langMenu" role="listbox" hidden></ul>
+        </div>
+
+        <a class="icon-btn" id="ghLink" href="https://github.com/wilkessidney/prompt-vault" target="_blank" rel="noopener" aria-label="GitHub 仓库" data-i18n-attr="aria-label|app.gh"><svg class="ic"><use href="#i-github"/></svg></a>
+        <button class="icon-btn" id="themeBtn" aria-label="切换主题" data-i18n-attr="aria-label|app.toggle-theme"><svg class="ic"><use href="#i-moon"/></svg></button>
+      </div>
+    </div>
 
     <div class="search" role="search">
       <svg class="ic search-ic"><use href="#i-search"/></svg>
@@ -66,18 +82,6 @@
       <button class="chip-btn" id="favBtn" title="只看收藏" data-i18n-attr="title|app.fav-title">
         <svg class="ic"><use href="#i-star"/></svg><span class="chip-btn-t" data-i18n-html="app.fav-on">收藏 <b id="favCount">0</b></span>
       </button>
-
-      <!-- ============ 语言切换器 ============ -->
-      <div class="lang-pick" id="langPick">
-        <button class="icon-btn lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" title="切换语言" data-i18n-attr="title|lang.label">
-          <span class="lang-flag" id="langFlag">🇨🇳</span>
-          <span class="lang-code" id="langCode">ZH</span>
-        </button>
-        <ul class="lang-menu" id="langMenu" role="listbox" hidden></ul>
-      </div>
-
-      <a class="icon-btn" id="ghLink" href="https://github.com/wilkessidney/prompt-vault" target="_blank" rel="noopener" aria-label="GitHub 仓库" data-i18n-attr="aria-label|app.gh"><svg class="ic"><use href="#i-github"/></svg></a>
-      <button class="icon-btn" id="themeBtn" aria-label="切换主题" data-i18n-attr="aria-label|app.toggle-theme"><svg class="ic"><use href="#i-moon"/></svg></button>
     </div>
   </div>
 </header>

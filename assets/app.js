@@ -283,6 +283,8 @@
       return '<button class="qchip" data-act="sub" data-cat="' + c.id + '" data-sub="" style="--c:' + c.color + '">' +
         '<svg class="ic"><use href="#i-' + c.icon + '"/></svg>' + esc(pickCat(c.id)) + '</button>';
     }).join('');
+    html += '<button class="qb-more" data-act="toggle-quick" aria-label="展开全部分类">' +
+      '<svg class="ic"><use href="#i-chev"/></svg></button>';
     $('#quickbar').innerHTML = html;
   }
 
@@ -675,6 +677,11 @@
         state.favOnly = false;
         closeDrawer();
         go(cat ? '#/c/' + cat + (sub ? '/' + sub : '') : '#/');
+        return;
+      }
+      if (act === 'toggle-quick') {
+        e.stopPropagation();
+        $('#quickbar').classList.toggle('expanded');
         return;
       }
       if (act === 'fav') { e.stopPropagation(); toggleFav(el.dataset.id); return; }

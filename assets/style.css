@@ -100,6 +100,10 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   max-width: 1420px; height: 100%; margin: 0 auto; padding: 0 22px;
   display: flex; align-items: center; gap: 16px;
 }
+.hdr-left { display: flex; align-items: center; gap: 12px; flex: none; }
+.hdr-set { display: flex; align-items: center; gap: 6px; }
+/* 语言按钮在 header 左侧时，菜单向左展开避免超出视口 */
+.hdr-set .lang-menu { left: 0; right: auto; }
 .brand { display: flex; align-items: center; gap: 9px; margin-right: 4px; flex: none; }
 .brand-mark {
   width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
@@ -334,8 +338,20 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 .hero-card .l3 { width: 64%; }
 
 /* 快速分类 */
-.quickbar { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
+.quickbar { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; position: relative; }
 .quickbar::-webkit-scrollbar { display: none; }
+.qb-more {
+  flex: none; display: none; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 20px;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text-2); cursor: pointer; transition: .16s var(--ease);
+  position: sticky; right: 0; box-shadow: -8px 0 14px var(--bg);
+  z-index: 2;
+}
+.qb-more:hover { border-color: var(--border-2); color: var(--text); }
+.qb-more .ic { width: 14px; height: 14px; transition: transform .2s var(--ease); }
+.quickbar.expanded { flex-wrap: wrap; overflow-x: visible; padding-bottom: 6px; }
+.quickbar.expanded .qb-more .ic { transform: rotate(180deg); }
 .qchip {
   flex: none; display: inline-flex; align-items: center; gap: 6px;
   height: 32px; padding: 0 12px; border-radius: 20px;
@@ -650,6 +666,7 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; padding: 0 14px; gap: 0; }
   .only-mobile { display: grid; }
+  .qb-more { display: inline-flex; }
   .side {
     position: fixed; z-index: 90; top: var(--hdr-h); left: 0; bottom: 0; width: 276px;
     max-height: none; border-radius: 0; border-left: none; border-top: none;
@@ -671,6 +688,8 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 }
 @media (max-width: 560px) {
   .hdr-in { padding: 0 12px; gap: 9px; }
+  .hdr-left { gap: 6px; }
+  .hdr-set .lang-code { display: none; }
   .kbd-hint { display: none; }
   .hero-stats { gap: 18px; }
   .stat b { font-size: 19px; }
@@ -678,6 +697,10 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   .toasts { bottom: 14px; width: calc(100% - 28px); }
   .toast { width: 100%; justify-content: center; }
   .dtl-act .btn-p, .dtl-act .btn-s { flex: 1; justify-content: center; }
+}
+
+@media (max-width: 400px) {
+  .brand-txt { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
