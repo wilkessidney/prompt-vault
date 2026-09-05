@@ -50,7 +50,7 @@
 
 /* ---------------------------- Reset ---------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: var(--hdr-h); }
 body {
   margin: 0;
   background: var(--bg);
@@ -669,6 +669,10 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   .layout { grid-template-columns: 1fr; padding: 0; gap: 0; }
   .only-mobile { display: grid; }
   .qb-more { display: inline-flex; }
+  /* 移动端 header 自适应：向下滚动时收起，向上滚动或回顶部时展出，减少遮挡 */
+  :root { --hdr-h: 54px; }
+  .hdr { transition: transform .22s var(--ease); }
+  .hdr.hide { transform: translateY(-100%); }
   .side {
     position: fixed; z-index: 90; top: var(--hdr-h); left: 0; bottom: 0; width: 276px;
     max-height: none; border-radius: 0; border-left: none; border-top: none;

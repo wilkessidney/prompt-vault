@@ -839,4 +839,42 @@
           ' — ' + esc(t('error.load-hint').replace(/^ — /, '')) + '</span></div>';
       });
   }
+
+  /* ------------------------ 移动端自适应 header ------------------------ */
+  (function () {
+    var hdr = $('.hdr');
+    var lastY = 0;
+    var ticking = false;
+    var threshold = 8; // 最小滚动差，避免微抖
+    var isMobile = function () { return window.innerWidth <= 900; };
+
+    function updateHeader(y) {
+      if (!isMobile()) {
+        hdr.classList.remove('hide');
+        return;
+      }
+      if (y <= 0) {
+        hdr.classList.remove('hide');
+      } else if (y > lastY + threshold) {
+        hdr.classList.add('hide');
+      } else if (y < lastY - threshold) {
+        hdr.classList.remove('hide');
+      }
+      lastY = y;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          updateHeader(window.scrollY || window.pageYOffset);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', function () {
+      if (!isMobile()) hdr.classList.remove('hide');
+    });
+  })();
 })();
