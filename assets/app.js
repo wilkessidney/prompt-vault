@@ -15,7 +15,7 @@
   var LANG_KEY = 'pv.lang';
   var I18N = window.__PV_I18N__ || { LANGS: {}, t: function (k) { return k; }, DEFAULT: 'zh' };
 
-  var state = { q: '', cat: '', sub: '', sort: 'updated', favOnly: false, view: 'home', id: '' };
+  var state = { q: '', cat: '', sub: '', sort: 'updated', favOnly: false, view: 'home', id: '', quickExpanded: false };
   var favs = load(FAV_KEY, []);
   var currentLang = load(LANG_KEY, I18N.DEFAULT);
 
@@ -277,15 +277,24 @@
   }
 
   function renderQuick() {
-    var html = '<button class="qchip' + (!state.cat ? ' on' : '') + '" data-act="sub" data-cat="" data-sub="" style="--c:var(--accent)">' +
-      '<svg class="ic"><use href="#i-cube"/></svg>' + esc(t('side.all')) + '</button>';
-    html += DATA.taxonomy.map(function (c) {
-      return '<button class="qchip" data-act="sub" data-cat="' + c.id + '" data-sub="" style="--c:' + c.color + '">' +
-        '<svg class="ic"><use href="#i-' + c.icon + '"/></svg>' + esc(pickCat(c.id)) + '</button>';
-    }).join('');
-    html += '<button class="qb-more" data-act="toggle-quick" aria-label="展开全部分类">' +
-      '<svg class="ic"><use href="#i-chev"/></svg></button>';
-    $('#quickbar').innerHTML = html;
+    var chips = [];
+    chips.push('<button class="qchip' + (!state.cat ? ' on' : '') + '" data-act="sub" data-cat="" data-sub="" style="--c:var(--accent)">' +
+      '<svg class="ic"><use href="#i-cube"/></svg>' + esc(t('side.all')) + '</button>');
+    DATA.taxonomy.forEach(function (c) {
+      chips.push('<button class="qchip" data-act="sub" data-cat="' + c.id + '" data-sub="" style="--c:' + c.color + '">' +
+        '<svg class="ic"><use href="#i-' + c.icon + '"/></svg>' + esc(pickCat(c.id)) + '</button>');
+    });
+    // 移动端未展开时只保留可见数量的入口 + "展开" 按钮，避免截断
+    var w = window.innerWidth;
+    var isMobile = w <= 900;
+    var limit = w <= 560 ? 3 : 4;
+    if (isMobile && !state.quickExpanded && chips.length > limit) {
+      chips = chips.slice(0, limit);
+    }
+    chips.push('<button class="qb-more' + (state.quickExpanded ? ' expanded' : '') + '" data-act="toggle-quick" aria-label="展开/收起全部分类">' +
+      '<svg class="ic"><use href="#i-chev-down"/></svg></button>');
+    $('#quickbar').innerHTML = chips.join('');
+    $('#quickbar').classList.toggle('expanded', state.quickExpanded);
   }
 
   function syncQuick() {
@@ -681,7 +690,8 @@
       }
       if (act === 'toggle-quick') {
         e.stopPropagation();
-        $('#quickbar').classList.toggle('expanded');
+        state.quickExpanded = !state.quickExpanded;
+        renderQuick();
         return;
       }
       if (act === 'fav') { e.stopPropagation(); toggleFav(el.dataset.id); return; }
