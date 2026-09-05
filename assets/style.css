@@ -101,6 +101,9 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   display: flex; align-items: center; gap: 16px;
 }
 .hdr-left { display: flex; align-items: center; gap: 10px; flex: none; }
+.hdr-set { display: flex; align-items: center; gap: 6px; }
+/* 语言按钮在 header 左侧时，菜单向左展开避免超出视口 */
+.hdr-set .lang-menu { left: 0; right: auto; }
 .brand { display: flex; align-items: center; gap: 9px; margin-right: 4px; flex: none; }
 .brand-mark {
   width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
@@ -221,11 +224,6 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   display: flex; align-items: center; justify-content: space-between;
   padding: 13px 14px 11px; border-bottom: 1px solid var(--border);
 }
-.side-tools {
-  display: none; align-items: center; gap: 8px;
-  padding: 12px 14px; border-bottom: 1px solid var(--border);
-}
-.side-tools .lang-menu { right: 0; left: auto; }
 .side-title { font-size: 11px; font-weight: 700; letter-spacing: 1.1px; color: var(--text-3); text-transform: uppercase; }
 .side-reset { font-size: 12px; color: var(--text-3); padding: 2px 7px; border-radius: 6px; transition: .15s; }
 .side-reset:hover { color: var(--accent); background: var(--accent-soft); }
@@ -669,17 +667,20 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   .layout { grid-template-columns: 1fr; padding: 0; gap: 0; }
   .only-mobile { display: grid; }
   .qb-more { display: inline-flex; }
-  /* 移动端 header 自适应：向下滚动时收起，向上滚动或回顶部时展出，减少遮挡 */
+  /* 移动端 header 自适应：单行布局 + 向下滚动时收起，减少遮挡 */
   :root { --hdr-h: 54px; }
   .hdr { transition: transform .22s var(--ease); }
   .hdr.hide { transform: translateY(-100%); }
+  .hdr-in { padding: 0 12px; gap: 9px; }
+  .hdr-left { flex: none; }
+  .hdr-act { gap: 3px; margin-left: auto; }
+  .search { flex: 1; max-width: none; }
   .side {
     position: fixed; z-index: 90; top: var(--hdr-h); left: 0; bottom: 0; width: 276px;
     max-height: none; border-radius: 0; border-left: none; border-top: none;
     transform: translateX(-102%); transition: transform .26s var(--ease);
   }
   .side.open { transform: none; box-shadow: var(--sh-3); }
-  .side-tools { display: flex; }
   .scrim:not([hidden]) {
     display: block; position: fixed; inset: var(--hdr-h) 0 0; z-index: 80;
     background: rgba(10, 12, 20, .42); backdrop-filter: blur(2px);
@@ -700,6 +701,7 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 @media (max-width: 560px) {
   .hdr-in { padding: 0 12px; gap: 9px; }
   .hdr-left { gap: 6px; }
+  .hdr-set .lang-code { display: none; }
   .kbd-hint { display: none; }
   .hero-stats { gap: 18px; }
   .stat b { font-size: 19px; }
