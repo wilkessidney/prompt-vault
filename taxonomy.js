@@ -230,6 +230,19 @@ export const TAXONOMY = [
       { id: 'life', name: '生活助理' },
     ],
   },
+  {
+    id: 'project',
+    name: '项目开发',
+    icon: 'code',
+    color: '#ef4444',
+    desc: '可直接交付完整项目的模块化开发提示词：桌面 / Web / CLI 与可复用模板',
+    subs: [
+      { id: 'template', name: '开发模板' },
+      { id: 'desktop-app', name: '桌面应用' },
+      { id: 'web-app', name: 'Web 应用' },
+      { id: 'cli-tool', name: '命令行工具' },
+    ],
+  },
 ];
 
 export const CATEGORY_MAP = new Map(TAXONOMY.map((c) => [c.id, c]));

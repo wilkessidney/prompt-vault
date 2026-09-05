@@ -20,6 +20,7 @@ export const I18N_CAT = {
   marketing:{ zh: '营销与增长', en: 'Marketing & Growth', ja: 'マーケティングと成長', ko: '마케팅과 성장', es: 'Marketing y crecimiento', fr: 'Marketing et croissance', de: 'Marketing & Wachstum', ru: 'Маркетинг и рост' },
   prompteng:{ zh: '提示词工程', en: 'Prompt Engineering', ja: 'プロンプトエンジニアリング', ko: '프롬프트 엔지니어링', es: 'Ingeniería de prompts', fr: 'Ingénierie de prompts', de: 'Prompt Engineering', ru: 'Промпт-инжиниринг' },
   play:     { zh: '角色扮演与娱乐', en: 'Roleplay & Fun', ja: 'ロールプレイと娯楽', ko: '롤플레이와 엔터테인먼트', es: 'Juego de roles y diversión', fr: 'Jeu de rôle et divertissement', de: 'Rollen­spiel & Spaß', ru: 'Ролевые игры и развлечения' },
+  project:  { zh: '项目开发', en: 'Project Dev', ja: 'プロジェクト開発', ko: '프로젝트 개발', es: 'Desarrollo de proyecto', fr: 'Développement de projet', de: 'Projektentwicklung', ru: 'Разработка проекта' },
 };
 
 export const I18N_SUB = {
@@ -150,5 +151,11 @@ export const I18N_SUB = {
     coach:     { zh: '心理与教练', en: 'Coach',            ja: 'コーチング', ko: '코칭',           es: 'Coaching',       fr: 'Coaching',       de: 'Coaching',       ru: 'Коучинг' },
     games:     { zh: '游戏与解谜', en: 'Games & puzzles',  ja: 'ゲーム',       ko: '게임·퍼즐',     es: 'Juegos',         fr: 'Jeux & énigmes', de: 'Spiele & Rätsel', ru: 'Игры и головоломки' },
     life:      { zh: '生活助理', en: 'Life assistant',    ja: 'ライフ',       ko: '생활 도우미',   es: 'Asistente personal', fr: 'Assistant de vie', de: 'Lebens­assistent', ru: 'Ассистент на каждый день' },
+  },
+  project: {
+    template:    { zh: '开发模板', en: 'Dev templates',   ja: '開発テンプレート', ko: '개발 템플릿',   es: 'Plantillas',   fr: 'Modèles',     de: 'Vorlagen',      ru: 'Шаблоны' },
+    'desktop-app': { zh: '桌面应用', en: 'Desktop app',    ja: 'デスクトップアプリ', ko: '데스크톱 앱',  es: 'App de escritorio', fr: 'App bureau',   de: 'Desktop-App',  ru: 'Десктоп' },
+    'web-app':   { zh: 'Web 应用', en: 'Web app',         ja: 'Web アプリ',     ko: '웹 앱',          es: 'App web',      fr: 'App web',      de: 'Web-App',      ru: 'Веб-приложение' },
+    'cli-tool':  { zh: '命令行工具', en: 'CLI tool',      ja: 'CLI ツール',     ko: 'CLI 도구',       es: 'Herramienta CLI', fr: 'Outil CLI',    de: 'CLI-Tool',     ru: 'CLI-утилита' },
   },
 };
