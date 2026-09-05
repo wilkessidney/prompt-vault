@@ -1,5 +1,5 @@
 ---
-title: 自然语言转 SQL
+title: 文本转 SQL（分析向）
 summary: 给定表结构生成可执行的复杂查询，附带歧义确认与性能提示。
 category: data
 subcategory: sql

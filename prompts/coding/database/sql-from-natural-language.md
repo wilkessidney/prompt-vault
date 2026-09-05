@@ -1,5 +1,5 @@
 ---
-title: 自然语言转 SQL
+title: 自然语言生成 SQL（开发向）
 summary: 输入表结构和业务问题，生成可执行 SQL 并解释推理。
 category: coding
 subcategory: database
