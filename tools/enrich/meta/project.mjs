@@ -262,56 +262,93 @@ mall.xiaohongshu.com/api/store/jpd/edith/detail/h5/toc?version=0.0.5&item_id=商
     tags: ['Web 开发', '全栈', '前后端', '范例'],
     model: '通用',
     level: '高级',
-    body: `请直接为我开发并交付一套完整可运行、可部署的全栈 Web 应用（目标：本地运行 + 一键 Docker 部署）。不要只输出方案或伪代码，请创建完整项目、本地启动调试、修复错误，并给出可部署产物。
+    body: `请直接为我开发并交付一套完整可运行、可部署的全栈 Web 应用（目标：本地运行 + 一键 Docker 部署）。不要只输出方案、界面示例或伪代码；请创建完整项目、本地启动调试、修复错误，并给出可部署产物。
 
-软件定位：一个个人记账应用，支持多账户、分类、标签、月度预算、导入 CSV，并提供收支趋势与分类占比的可视化看板。业务数据保存在本机 / 服务端 SQLite（或 Postgres，二选一在设置中可切）。
+软件定位：一个个人记账与财务可视化应用，支持多账户、收支分类、标签、月度预算、CSV 批量导入，并提供收支趋势、分类占比、账户余额与预算执行进度的可视化看板。业务数据保存在本机 / 服务端 SQLite（或 Postgres，二选一在设置中可切换）。
+
+执行要求：请严格按照下方规格一次性完成。
 
 ## 一、交付目标
-至少包含：前端源码（单页应用）、后端 API 源码、数据库初始化与迁移、定时任务（可选：月度结算）、依赖清单、Dockerfile + docker-compose、README、环境变量示例、构建脚本。代码分层：前端组件 / 后端路由 / 服务层 / 数据访问层 / 数据库迁移，不堆在一个文件。
+交付内容至少包括：前端源码（单页应用）、后端 API 源码、数据库初始化与自动迁移、定时任务（月度结算与日报）、依赖清单、Dockerfile + docker-compose、README、环境变量示例、构建脚本。代码必须分层清晰（前端页面 / 组件、后端路由、服务层、数据访问层、数据库迁移、定时任务），不要把全部功能堆在一个文件里。
 
 ## 二、技术栈约束
 - 运行时：Node.js 20 LTS 或 Python 3.12。
-- 前端：原生构建或轻框架（如 Vite + React / Svelte），禁止依赖需单独付费的运行环境。
-- 数据库：SQLite（WAL）默认，支持切 Postgres；所有表自动创建与迁移。
-- HTTP：标准库或成熟框架（Express / FastAPI）。
-- 打包 / 部署：Docker 多阶段构建，运行时无控制台；docker-compose 一键起前后端 + 数据库。
-- 时区：Asia/Shanghai；首次运行自动建库与默认分类。
+- 前端：Vite + React 或 Svelte，禁止依赖需单独付费的运行环境。
+- 后端：Express 或 FastAPI，REST API，JSON 通信。
+- 数据库：SQLite（WAL 模式）默认，支持切换到 Postgres；所有表自动创建，旧数据库缺少字段时自动迁移。
+- HTTP：后端使用成熟框架；前端使用 fetch 或轻量封装；API 返回统一 envelope { code, data, message }。
+- 部署：Docker 多阶段构建，运行时无控制台；docker-compose 一键起前后端 + 数据库；生产环境支持环境变量注入密钥与数据库地址。
+- 时区与编码：全部使用 Asia/Shanghai；首次运行自动建库、默认分类与默认账户。
+- 会话：JWT 或无状态 Token；不强制登录（单机版可默认 guest），但接口鉴权逻辑必须存在。
 
 ## 三、输入与解析
-支持手动记账（表单）、批量导入（CSV，表头可映射）、重复规则（如每月房租自动生成）；导入去重按交易时间与金额 + 备注哈希；批量结束汇总成功 / 跳过 / 失败各多少。
+必须支持三种记账入口：手动表单记账（金额、类型收/支、账户、分类、标签、时间、备注）；批量导入 CSV（表头可智能映射，支持 支付宝/微信/银行 常用表头别名）；重复规则（如每月房租、工资在指定日自动生成）。CSV 导入按「交易时间 + 金额 + 备注哈希」去重；批量导入结束显示成功、重复、格式错误、金额非法各多少条。
 
 ## 四、核心接口与字段解析
-给出 REST 路由与字段表：交易（金额、币种、账户、分类、标签、时间、备注）、账户（名称、类型、初始余额）、分类（名称、类型收/支、颜色）、预算（月份、分类或总预算、额度）。明确字段校验：金额为数字、时间为合法日期、分类必须存在；非法请求返回 4xx 并说明原因，不写脏数据。
+给出完整 REST 路由与字段表。交易 transaction：id、amount（数字，保留两位小数，支出为负/收入为正）、type（income/expense）、account_id、category_id、tag_ids（数组）、transacted_at（ISO 8601 本地时间）、note、created_at。账户 account：id、name、type（现金/储蓄卡/信用卡/投资/电子钱包）、initial_balance、currency（默认 CNY）。分类 category：id、name、type、color、icon、parent_id（可选）。标签 tag：id、name、color。预算 budget：id、month（YYYY-MM）、category_id（NULL 表示总预算）、amount、note。导入记录 import：id、filename、total、success、duplicate、failed、created_at。
+
+明确字段校验：金额必须为合法数字且不为 0；时间必须为合法日期且不能是未来超过 1 年；分类必须存在且与交易类型匹配（收入分类不能用于支出）；账户必须存在。非法请求返回 4xx 并说明具体字段错误，不写脏数据。删除交易时必须回滚对应账户余额，禁止物理删除，提供软删除与回收站。
 
 ## 五、执行策略
-导入大文件时分批写入并使用事务；请求间无需浏览器兜底；长任务（导入 / 月结）放后台队列，前端轮询或 WebSocket 进度。
+手动记账即时写入并返回最新余额；CSV 大文件导入分批写入并使用事务，每批 100 条；导入长任务放入后台队列（或异步任务表），前端通过轮询或 WebSocket 获取进度；请求间无需浏览器兜底。月度结算任务使用单实例锁，防止重复执行。
 
-## 六、异常分类
-区分客户端错误（4xx）、服务端错误（5xx）、外部依赖失败（数据库断开）；客户端错误直接返回；服务端错误记录日志并返回友好提示；单请求失败不影响其他。
+## 六、异常分类、重试与熔断
+区分客户端错误（4xx，直接返回字段级错误）、服务端错误（5xx，记录日志并返回友好提示）、外部依赖失败（数据库断开、磁盘满）。数据库连接失败时后端启动应明确报错并退出，不能默默使用空数据；单请求失败不影响其他请求；定时任务失败重试一次并记录告警日志。
 
 ## 七、状态识别
-明确「删除」与「归档」差异；删除交易保留关联账户余额回滚；不做物理误删，提供软删除与回收站。
+明确「删除」「归档」「待确认」差异。删除交易进入回收站 30 天，期间可恢复，真正删除后保留审计日志；归档交易不参与日常统计但可单独查看；CSV 导入中无法解析的行标记为待确认，用户可批量编辑或忽略。不得把网络错误、前端校验失败误标为交易状态。
 
-## 八、定时任务
-可选月度结算：每月 1 日 02:00 生成本月预算执行快照；使用单实例锁防止重复执行；失败重试一次并告警。
+## 八、定时任务与调度
+默认启用两项定时任务：每月 1 日 02:00 生成上月预算执行快照；每日 08:00 生成昨日收支日报（如开启 Webhook 通知则发送）。任务使用单实例锁（文件锁或数据库锁）防止重复执行；跨日 / 跨月边界按自然时间处理；失败重试一次，连续失败写入告警日志。
 
-## 九、数据模型
-表：accounts、categories、transactions、budgets、imports、settings、logs。参数化 SQL、索引（时间、账户、分类）、迁移脚本可重放。
+## 九、SQLite / Postgres 数据结构
+至少建立以下表。accounts：id TEXT PRIMARY KEY、name TEXT NOT NULL、type TEXT、initial_balance REAL DEFAULT 0、currency TEXT DEFAULT 'CNY'、created_at TEXT、archived INTEGER DEFAULT 0。categories：id TEXT PRIMARY KEY、name TEXT NOT NULL、type TEXT（income/expense）、color TEXT、icon TEXT、parent_id TEXT、sort_order INTEGER。tags：id TEXT PRIMARY KEY、name TEXT UNIQUE、color TEXT。transactions：id TEXT PRIMARY KEY、amount REAL NOT NULL、type TEXT NOT NULL、account_id TEXT、category_id TEXT、transacted_at TEXT、note TEXT、deleted INTEGER DEFAULT 0、deleted_at TEXT、created_at TEXT。budgets：id TEXT PRIMARY KEY、month TEXT NOT NULL、category_id TEXT、amount REAL NOT NULL、note TEXT；复合唯一索引 month+category_id。budget_snapshots：id TEXT PRIMARY KEY、budget_id TEXT、month TEXT、actual REAL、remaining REAL、created_at TEXT。imports：id TEXT PRIMARY KEY、filename TEXT、total INTEGER、success INTEGER、duplicate INTEGER、failed INTEGER、created_at TEXT。settings：key TEXT PRIMARY KEY、value TEXT NOT NULL。logs：自增 ID、level TEXT、source TEXT、message TEXT、detail TEXT、created_at TEXT，为 created_at 建索引。
+
+数据库操作使用参数化 SQL；SQLite 开启 WAL 模式；软件升级时通过 PRAGMA table_info（或 Postgres information_schema）检测并补充新字段，不要求用户删除旧数据库。
 
 ## 十、统计口径
-收支 = 交易按类型汇总；月度趋势 = 相邻月结快照差值；分类占比 = 当期分类汇总 / 总收入；缺失月份显示「—」不伪造 0；余额 = 初始余额 + 所有交易净额，跨账户分别算。
+所有统计必须基于真实交易记录，不写假数据。本月收入 = 本月 income 类型交易金额汇总；本月支出 = 本月 expense 类型交易金额汇总（取绝对值）；本月结余 = 收入 - 支出。月度趋势 = 最近 12 个月每月收入/支出；缺失月份显示「—」不伪造 0。分类占比 = 当期该分类支出 / 当期总支出。账户余额 = 账户 initial_balance + 该账户所有未删除交易净额。预算执行 = 该预算周期内对应分类支出 / 预算金额，超过 100% 标红。趋势图与饼图使用真实聚合数据，不得用随机数填充。
 
-## 十一、界面风格
-响应式，浅色主题，主色蓝；表格可排序、可筛选；看板用折线 + 饼图；移动端可用。
+## 十一、Web 界面总体风格
+响应式布局，浅色主题为主，主色蓝色，红色仅用于支出 / 报错。桌面端左侧固定导航，右侧主内容区；移动端底部 Tab 导航。表格行高约 48px，列宽合理，支持横向滚动；表单输入带即时校验与错误提示。不做花哨动画，优先信息密度。必须显示免责声明：仅供个人学习记录，不构成投资建议。顶部状态栏显示当前账本、数据最后更新时间、未同步提示（如启用服务端）。
 
-## 十二、主功能模块
-Tab：记账、交易列表、账户、分类、预算、看板、设置、日志。交互：实时搜索、表头排序、双击详情、多选批量、删除二次确认。
+## 十二、主功能模块（固定顺序导航）
+按顺序：概览看板、记一笔、交易列表、账户、分类、预算、导入、回收站、设置、运行日志。
 
-## 十三至二十二（沿用模板对应模块）
-智能去重（导入重复判定）、失败列表（导入失败可重试）、分析视图（看板 + 单交易弹窗）、外部通知（可选 Webhook 日报）、设置页（分组卡片）、只读 API（与 MCP 类似，提供只读查询令牌）、运行日志（持久化 + 导出）、数据清理（保留 N 月 + 基线）、稳定性安全（不写死密钥、脱敏、事务、超时）。
+概览看板：顶部四张卡片（本月收入、本月支出、本月结余、预算使用率）；中部折线图（近 6 个月收支趋势）；右侧/下方饼图（本月支出分类占比）；最近 5 笔交易列表。记一笔：快速表单，支持切换收/支、选择账户与分类、添加标签、选择时间、填写备注、保存后再记一笔。交易列表：搜索框（名称/账户/分类/备注）、时间筛选、类型筛选；表格列（时间、类型、分类、账户、金额、标签、备注）；表头排序；双击编辑；右键菜单；多选批量删除/归档；删除二次确认。账户：账户卡片显示余额与类型；支持新增、编辑、归档、调整初始余额。分类：分类树/列表；支持新增、编辑、拖拽排序；支出/收入分类用颜色区分。预算：按月显示各分类预算进度条；支持新增/编辑预算；超预算标红。导入：拖拽上传 CSV、选择表头映射、预览前 10 条、开始导入、显示进度与结果报告。回收站：30 天内可恢复，可彻底删除。设置：分组卡片（账本设置、分类预设、通知、数据清理、导入导出）。运行日志：按级别筛选、刷新、清空（二次确认）、导出 CSV。
+
+## 十三、智能去重（导入与重复规则）
+CSV 导入去重：同一文件内按「交易时间 + 金额绝对值 + 备注前 20 字」哈希去重；跨文件按同样规则去重。重复规则：用户可设置周期性交易（如每月 1 日房租），系统在到期前 3 天首页提示确认，确认后自动生成。关键字段缺失（时间为空或金额为 0）不参与去重，标记为待确认。
+
+## 十四、失败 / 异常列表
+导入失败列表显示文件名、行号、原始内容、失败原因（字段缺失/金额非法/时间格式错误/分类不存在）。支持单条编辑后重试、批量忽略、批量删除。重试成功后移出失败列表。服务端错误（数据库断开等）不进入此列表，而是写入运行日志。
+
+## 十五、分析视图与单品弹窗
+概览看板点击分类饼图区块可下钻到该分类交易列表。交易列表双击打开单品弹窗：展示交易时间、类型、分类、账户、标签、金额、备注，并提供编辑、复制、删除按钮。预算模块点击进度条打开预算详情弹窗：展示当月实际支出、剩余预算、历史同期对比、该预算分类的交易明细。
+
+## 十六、外部通知 / 集成
+设置页提供 Webhook 配置（如企业微信机器人、Discord、Slack 或通用 HTTP POST）：URL 输入框、启用开关、发送测试按钮、选择通知事件（日报 / 月报 / 超预算提醒）。日报示例：「09月08日 昨日收入 0.00，支出 128.50，本月结余 3821.30」。月报示例：「8月收支月报：收入 12500.00，支出 8679.50，结余 3820.50，超预算分类：餐饮」。消息过长自动拆分；发送失败写入日志但不影响数据保存。
+
+## 十七、设置页
+按分组卡片纵向排列：账本设置（本位币、默认账户、数据保留天数）；分类与标签（导入默认分类、批量编辑）；通知（Webhook、事件选择、测试）；数据（导入 JSON/导出 JSON、一键清理、备份恢复）；安全（修改 Token、会话过期时间）。保存、测试、清理等操作按钮分组明确。
+
+## 十八、只读 API / MCP 服务
+提供独立只读查询接口（或 MCP 服务），使用 Token 或本地 stdio 通信，只读访问数据库，绝不提供增删改能力。至少提供：list_accounts（账户列表与余额）；list_transactions（交易列表，可按时间、账户、分类、标签筛选）；get_monthly_summary（指定月份收入/支出/结余）；get_category_breakdown（指定周期分类占比）；get_budget_status（预算执行状态）；search_transactions（按关键词搜索）。所有返回结果包含统计口径与数据截止时间；查询逻辑与前端看板共用同一套统计函数，保证结果一致。
+
+## 十九、运行日志
+日志持久化到数据库，重启不丢失。字段：时间、级别（INFO/WARN/ERROR）、来源、消息、完整详情。界面支持按级别 / 来源筛选、刷新、清空（二次确认）、导出 CSV；双击查看完整异常详情并支持复制。导入失败、服务端异常、Webhook 发送失败都要展示真实异常信息，不要只写「失败」二字。
+
+## 二十、数据占用和一键清理
+设置页实时显示数据库文件大小与交易记录条数。提供一键清理：默认保留最近 24 个月交易记录；归档账户与分类保留；清理前二次确认并报告删除条数与释放空间；执行 SQLite 的 WAL checkpoint 与 VACUUM（或 Postgres VACUUM ANALYZE）。清理逻辑始终可用，与其他功能开关无关。
+
+## 二十一、稳定性和安全要求
+不在源码中写死个人密钥、数据库密码或 Webhook Token；敏感信息通过环境变量注入；日志不输出完整 Token、Cookie 或密码；数据库写入使用事务，防止中途退出留下半条记录；所有外部请求（Webhook、文件上传）设置超时；任何后端异常不能让前端崩溃；支持长标题、空备注、零金额、跨月等边界情况。Docker 镜像使用非 root 用户运行。
+
+## 二十二、打包和项目结构
+建议目录：frontend/（Vite + React/Svelte）、backend/（Express/FastAPI）、shared/（类型定义与常量）、migrations/（数据库迁移脚本）、scripts/（构建与定时任务脚本）、docker-compose.yml、Dockerfile、.env.example、README.md、pyproject.toml 或 package.json。主产物：前端静态文件 + 后端服务镜像；docker-compose up 一键启动。构建后校验前后端产物存在、数据库迁移可重放、无控制台黑框。
 
 ## 二十三、执行指令
-现在请开始创建完整项目，先检查目录是否已有数据，保留现有内容；依次完成后端、前端、数据库、调试与 Docker 化；不要中途只描述计划。`,
+现在请开始直接创建完整项目。先检查当前工作目录是否已有用户文件与数据，保留现有内容；然后依次完成后端、前端、数据库迁移、定时任务、本地调试与 Docker 化；不要中途只向我描述计划，也不要在实现一半时停止。若遇到非关键歧义，请按以上规格做合理决定并继续；只有缺少必须的图标源文件时才允许使用临时图标并注明替换位置。`,
   },
   {
     sub: 'cli-tool',
@@ -321,56 +358,98 @@ Tab：记账、交易列表、账户、分类、预算、看板、设置、日�
     tags: ['CLI', 'Python', '命令行', '范例'],
     model: '通用',
     level: '高级',
-    body: `请直接为我开发并交付一个完整可运行、可 pip 安装的 Python CLI 工具（目标：命令行直接使用）。不要只输出片段，请创建完整项目、本地运行测试、修复错误，并给出可发布产物。
+    body: `请直接为我开发并交付一个完整可运行、可 pip 安装、可发布的 Python CLI 工具（目标：命令行直接使用）。不要只输出片段、示例命令或伪代码；请创建完整项目、本地运行测试、修复错误，并给出可发布产物。
 
-工具定位：批量整理本地媒体文件（图片 / 视频），按拍摄时间或文件名规则重命名、按年月归类到目录、生成去重报告、可选调用 Pillow 生成缩略图。所有操作默认预览（dry-run），确认后才真正执行。
+工具定位：批量整理本地媒体文件（图片 / 视频 / 音频），按拍摄时间或文件名规则重命名、按年月归类到目录、生成去重报告、可选调用 Pillow 生成缩略图。所有写操作默认预览（dry-run），用户明确确认后才真正执行，避免误删误移动。
+
+执行要求：请严格按照下方规格一次性完成。
 
 ## 一、交付目标
-至少包含：cli 主程序、核心处理逻辑模块、配置模块、日志模块、单元测试、pyproject.toml（可 pip install -e）、README、示例配置文件。代码分层：cli 入口 / 业务规则 / IO 操作 / 日志，不堆在一个文件。
+交付内容至少包括：CLI 主程序入口、核心处理逻辑模块、配置模块、日志模块、本地 SQLite 状态库、单元测试、pyproject.toml（支持 pip install -e . 安装）、README.md、示例配置文件、Makefile 或任务脚本。代码必须分层清晰（cli 入口 / 业务规则 / IO 操作 / 元数据解析 / 日志 / 数据库），不要把全部功能堆在一个巨大函数里。
 
 ## 二、技术栈约束
-- 运行时：Python 3.10+。
-- 界面：argparse 或 click；不依赖需联网的运行时。
-- 数据库：可选 SQLite 记录已处理哈希（去重用），默认关闭。
-- 文件操作：标准库 pathlib / shutil；图片缩略图用 Pillow。
-- 打包：可 pip 安装，console_scripts 入口；无 GUI、无黑框概念（纯终端）。
-- 时区：Asia/Shanghai 用于时间归类。
+- 运行时：Python 3.10+，兼容 CPython 与常见虚拟环境。
+- CLI 框架：Click 或 argparse；命令自动补全（可选 shell 补全脚本）。
+- 数据库：SQLite 记录已处理文件哈希、目标路径与处理时间；开启 WAL 模式；所有表自动创建，旧表缺字段自动迁移。
+- 文件操作：标准库 pathlib / shutil / hashlib；元数据解析：Pillow（EXIF）、pymediainfo 或 mutagen（视频/音频时间）；图片缩略图用 Pillow。
+- 打包：pyproject.toml 配置 console_scripts 入口；支持 pip install -e . 与 python -m build 生成 wheel/sdist；纯终端，无 GUI、无黑框概念。
+- 时区与编码：媒体时间统一使用 Asia/Shanghai；路径与日志使用 UTF-8；配置文件默认放在用户配置目录（如 ~/.config/media-organizer/）。
 
 ## 三、输入与解析
-支持单文件、目录（递归）、多个路径参数；支持 --pattern 过滤；支持从文件读取路径清单；路径去重；按文件哈希识别重复。
+必须支持三种输入形态：单个文件路径；目录路径（递归处理）；从文本文件读取路径清单（--from-file）。支持 --pattern / --exclude 过滤（glob 语法，如 *.jpg, *.mp4）。支持路径去重：同一文件多次出现只处理一次。支持按文件类型白名单过滤（图片 / 视频 / 音频 / 全部）。
+
+解析规则：每个文件提取四元信息——文件类型（image/video/audio/other）、拍摄/录制时间、原始文件名（无扩展名）、文件哈希（sha256 前 16 位）。拍摄时间提取优先级：EXIF DateTimeOriginal → EXIF DateTime → 视频/音频元数据 create_time / creation_time → 文件名中的日期时间模式（如 IMG_20240908_153022.jpg）→ 文件 mtime → 无时间标记。
 
 ## 四、核心字段解析
-从 EXIF / 媒体元数据 / 文件名时间戳提取拍摄时间；提取不到时回退文件 mtime；明确「无时间」文件放入 unsorted 目录而非报错退出。
+给出元数据字段映射表与回退规则。图片：EXIF 中 DateTimeOriginal、DateTime、ModifyDate；如果 PIL 无法读取 EXIF，标记为 EXIF 缺失。视频：优先读取 mediainfo 的 Encoded_Date / Tagged_Date / Duration；其次读取文件名日期模式。音频：优先 mutagen 的 date / TDRC；其次文件名日期模式。所有时间统一解析为 YYYY-MM-DD HH:MM:SS 本地时间；无法解析时归入 unsorted/ 目录并在报告中标注原因。文件哈希用于重复判定与断点续传；大文件支持分块哈希以加速。
 
 ## 五、执行策略
-默认 dry-run 预览；--yes 才执行；大目录分批处理；单文件失败记录并继续，不中断整轮。
+默认 dry-run 预览：先扫描全部输入，生成操作清单（移动 / 复制 / 跳过 / 重命名 / 生成缩略图），以表格形式输出，让用户确认。只有显式传入 --yes 或 --move / --copy 指定动作时才真正执行。大目录分批处理，每批 100 个文件；单文件失败记录并继续，不中断整轮。操作支持两种模式：--move（整理后删除源文件）与 --copy（保留源文件）；默认 dry-run 不执行任何写操作。
 
-## 六、异常分类
-区分权限错误、磁盘满、损坏文件、跳过；损坏文件计入报告不崩溃；单文件失败不影响其他。
+## 六、异常分类、重试与熔断
+区分权限错误（PermissionError，跳过并记录）、磁盘满（OSError 28，立即停止并提示）、损坏文件（PIL 无法打开 / 视频元数据读取失败，计入损坏报告但不崩溃）、目标冲突（目标路径已存在，按 --on-conflict 处理）、未知异常（记录完整 traceback）。临时 IO 错误可重试一次，重试失败计入失败列表。单文件失败不影响其他文件；整轮结束输出成功、跳过、重复、失败、损坏各多少。
 
 ## 七、状态识别
-重复 = 哈希相同；冲突 = 目标已存在；均写入报告，由 --mode 决定覆盖 / 跳过 / 重命名。
+重复 = 文件 sha256 完全一致；冲突 = 目标目录已存在同名文件但内容不同；已处理 = 该文件哈希与目标路径已记录在 SQLite 状态库中。明确「损坏」与「未知格式」差异：损坏文件是已知格式但无法读取；未知格式是不在支持白名单内。只有出现明确业务特征时才转入对应分类，不能把路径拼写错误或权限错误误判为文件损坏。
 
-## 八、定时任务
-可选 --watch 模式监听目录（简易轮询），单实例锁防重复。
+## 八、定时任务与监听模式
+可选 --watch 模式监听目录（简易轮询，默认 30 秒一次），发现新文件自动处理；使用单实例文件锁防止重复启动监听。支持 --cron 输出 crontab 示例，方便用户设置定时整理。监听模式下只处理新增或修改时间晚于上次扫描的文件，避免重复处理。
 
-## 九、数据模型
-可选表 processed（hash、path、status、time）；参数化 SQL、索引。
+## 九、SQLite 数据结构
+至少建立以下表。files：id TEXT PRIMARY KEY（文件哈希）、source_path TEXT、target_path TEXT、status TEXT（processed/skipped/duplicate/failed/corrupted）、file_type TEXT、size INTEGER、taken_at TEXT、processed_at TEXT，为 status 与 processed_at 建索引。config：key TEXT PRIMARY KEY、value TEXT。duplicates：hash TEXT、source_path TEXT、existing_path TEXT、detected_at TEXT，为 hash 建索引。logs：自增 ID、level TEXT、source TEXT、path TEXT、message TEXT、detail TEXT、created_at TEXT，为 created_at 建索引。
+
+数据库操作使用参数化 SQL；开启 WAL 模式；升级时通过 PRAGMA table_info 检测并补充新字段，不要求用户删除旧数据库。
 
 ## 十、统计口径
-整理数 = 成功移动；重复数 = 哈希命中；失败数 = 异常；报告用真实计数，不伪造。
+整理数 = 状态为 processed 的文件数；重复数 = duplicates 表记录数 + 状态为 duplicate 的文件数；失败数 = 状态为 failed 的文件数；损坏数 = 状态为 corrupted 的文件数；跳过数 = 状态为 skipped 的文件数；释放/占用空间按真实文件大小计算。所有报告数字来自 SQLite 真实记录，不伪造。分类统计：按图片 / 视频 / 音频 / 无时间 分别计数。
 
-## 十一、界面风格
-终端输出清晰分级（INFO/WARN/ERROR），支持 --quiet / --verbose；表格化摘要。
+## 十一、CLI 输出风格
+终端输出清晰分级（INFO/WARN/ERROR/DEBUG），支持 --quiet（只输出错误与最终摘要）、--verbose（输出 DEBUG 级详情）、--no-color（禁用颜色）。默认输出使用 rich 或 colorama 彩色表格：文件路径、操作类型、目标路径、状态、耗时。进度显示：处理大目录时显示进度条与预计剩余时间（如 tqdm）。最终摘要包含：扫描文件数、成功整理数、重复数、失败数、损坏数、跳过数、耗时、输出目录总大小。
 
-## 十二、主功能模块
-子命令：organize（归类）、dedupe（去重）、thumb（缩略图）、report（报告）、watch（监听）。交互：--dry-run 预览、--yes 执行、进度条、中断可恢复。
+## 十二、主功能模块（子命令）
+按顺序实现以下子命令：
+- organize：按拍摄时间归类到目标目录（YYYY/MM 结构），支持 --move / --copy / --dry-run / --yes。
+- dedupe：扫描指定目录，按内容哈希找出重复文件，提供 --list / --delete / --link / --move-to 操作，删除前必须二次确认（除非 --yes）。
+- thumb：为图片生成指定尺寸的缩略图，输出到目标目录，支持 --size、--quality、--format。
+- report：生成整理/去重报告，支持 --format text / json / csv，支持按时间范围筛选。
+- watch：监听目录并自动处理新增文件，支持 --interval、--daemon、--pid-file。
+- config：查看与修改默认配置（目标目录、白名单、时区、日志级别）。
+- logs：查看最近日志，支持 --level、--tail、--export。
 
-## 十三至二十二（沿用模板对应模块）
-去重规则、失败清单可导出、分析视图（文本报告 + 可选图表）、外部集成（可选上传 Webhook）、设置（配置文件 + 环境变量）、只读查询（--query 历史）、运行日志（文件 + 控制台）、数据清理（清理数据库旧记录）、稳定性（不写死路径、事务、超时）。
+每个子命令都支持 --help，输出使用示例与参数说明。
+
+## 十三、智能去重与冲突处理
+重复判定：先按 sha256 全文件哈希；大文件可先按大小 + 前 1MB 哈希预筛选，再全量哈希确认。去重操作提供四种模式：list（仅列出）、delete（删除重复，保留最老/最新/路径最短）、link（硬链接或符号链接替代重复文件）、move-to（把重复文件移到隔离目录）。删除或移动重复文件前必须弹窗/输出清单并二次确认（除非 --yes）。关键字段缺失（如无法读取哈希）的文件不参与去重，标记为待检查。
+
+## 十四、失败 / 异常列表
+失败列表只放临时处理失败与环境错误，不放明确跳过或重复项。每条记录包含：源路径、目标路径、操作类型、失败原因、完整异常详情、发生时间。支持命令行查看：organizer report --status failed；支持单条或批量重试：organizer retry --id <hash>；支持忽略并标记为 skipped。重试成功后自动移出失败列表。损坏文件单独进入 corrupted 列表，不混在失败列表中。
+
+## 十五、分析视图与报告
+report 子命令输出多种格式。text 格式：终端表格，含分类统计、重复组列表、失败摘要。json 格式：结构化输出，便于其他工具消费。csv 格式：每条文件一行，含源路径、目标路径、状态、哈希、大小、拍摄时间。支持按时间范围（--since、--until）、文件类型（--type）、状态（--status）筛选。报告文件可导出到指定目录，文件名带时间戳。
+
+## 十六、外部通知 / 集成
+可选 Webhook 通知：整理/去重任务完成后向指定 URL 发送 POST，包含摘要 JSON。配置项：webhook_url、webhook_events（complete/failure/duplicate_found）。发送失败写入日志但不影响本地文件处理。支持 --dry-run 时测试 Webhook 发送一条示例消息。
+
+## 十七、设置与配置
+配置文件按分组组织：paths（source_dirs、target_dir、thumbs_dir、quarantine_dir）；filters（include_patterns、exclude_patterns、supported_types）；processing（timezone、on_conflict、default_action、hash_chunk_size）；notifications（webhook_url、webhook_events）；logging（level、max_days、max_size）。配置可通过 CLI 修改：organizer config set paths.target_dir /Volumes/Photos。配置校验：目标目录必须存在或可创建；时区必须是 IANA 合法时区；日志级别必须是 DEBUG/INFO/WARN/ERROR。
+
+## 十八、只读查询接口
+提供 --query 参数或 query 子命令，只读查询 SQLite 状态库，绝不修改文件或数据库。至少支持：list（按状态/类型/时间范围列文件）；duplicates（列重复组）；summary（统计摘要）；search（按路径或哈希搜索）。查询结果与 report 子命令使用同一套统计逻辑，保证一致。
+
+## 十九、运行日志
+日志同时输出到控制台与文件。文件日志按天轮转，默认保留 30 天；格式包含时间、级别、来源、路径、消息、完整异常详情。支持日志按级别筛选、导出 CSV、清空（二次确认）。失败记录必须展示真实异常信息，不要只写「失败」二字。日志中不输出敏感路径（如用户主目录可替换为 ~）。
+
+## 二十、数据占用和一键清理
+config 子命令或 report 提供数据占用显示：状态库大小、缩略图目录大小、隔离目录大小。提供一键清理：删除状态库中超过 N 天的 processed 记录（默认 365 天），保留失败/损坏记录；清理过期日志；执行 WAL checkpoint 与 VACUUM。清理前二次确认并报告释放空间。
+
+## 二十一、稳定性和安全要求
+不在源码中写死个人路径或密钥；目标目录通过参数或配置传入；日志不输出完整文件内容或敏感元数据（如 GPS 坐标若存在建议默认剥离）；数据库写入使用事务，防止中途退出留下半条记录；所有文件操作设置合理超时；任何单文件失败不能让整个 CLI 崩溃；支持长文件名、特殊字符路径、符号链接、跨文件系统复制。--move 操作默认要求 --yes，防止误删源文件。
+
+## 二十二、打包和项目结构
+建议目录：src/media_organizer/（__main__.py、cli.py、organizer.py、deduplicator.py、thumbs.py、metadata.py、database.py、config.py、logger.py、reporter.py、watcher.py、notifier.py）、tests/、pyproject.toml、README.md、config.example.toml、Makefile。主产物：安装后生成 organizer 可执行命令；pip install -e . 即可使用。构建后校验入口存在、版本号正确、wheel 可安装。
 
 ## 二十三、执行指令
-现在请开始创建完整项目，先检查目录是否已有数据，保留现有内容；依次完成模块、测试、打包配置与 README；不要中途只描述计划。`,
+现在请开始直接创建完整项目。先检查当前工作目录是否已有用户文件与数据，保留现有内容；然后依次完成核心模块、CLI 入口、数据库、测试、打包配置与 README；不要中途只向我描述计划，也不要在实现一半时停止。若遇到非关键歧义，请按以上规格做合理决定并继续；只有缺少必须的图标源文件时才允许使用临时资源并注明替换位置。`,
   },
   {
     sub: 'template',
@@ -630,5 +709,284 @@ Tab：记账、交易列表、账户、分类、预算、看板、设置、日�
 - 复盘：每次发布后记录 {{复盘项}}（问题 / 根因 / 修复 / 回归验证）
 
 输出后请标注发布前必须验证的清单（构建产物存在、无黑框、统计与界面一致）。`,
+  },
+  {
+    sub: 'mobile-app',
+    slug: 'habit-tracker-mobile-app',
+    title: '移动应用完整开发提示词：习惯追踪与打卡',
+    summary: '以「个人习惯追踪与每日打卡」为例，使用 React Native + Expo 构建跨平台移动应用的完整细则范例。',
+    tags: ['移动应用', 'React Native', 'Expo', '习惯追踪', '范例'],
+    model: '通用',
+    level: '高级',
+    body: `请直接为我开发并交付一套完整可运行、可打包的跨平台移动应用（iOS + Android）。不要只输出方案、界面示例或伪代码；请创建完整项目、本地运行调试、修复错误，并给出可安装产物。
+
+应用定位：一款个人习惯追踪与每日打卡应用，支持创建习惯、设置每周目标、每日一键打卡、查看连续打卡天数、生成周/月/年统计图表，并通过本地通知提醒用户。所有数据默认保存在本机 SQLite（通过 Expo SQLite），支持导出备份与导入恢复。
+
+执行要求：请严格按照下方规格一次性完成。
+
+## 一、交付目标
+交付内容至少包括：React Native + Expo 完整源码、路由与导航、习惯数据模型、每日打卡记录、统计图表、本地通知、数据导出导入、依赖清单、README、EAS Build 配置、Android APK/AAB 与 iOS Simulator/App Store 构建产物。代码必须分层清晰（组件 / 服务 / 数据 / 通知），不要把全部功能堆在一个文件里。
+
+## 二、技术栈约束
+- 框架：React Native 0.72+，使用 Expo SDK 50+（ managed workflow 或 bare workflow 均可，优先 managed）。
+- 导航：Expo Router 或 React Navigation 6+，底部 Tab + 模态弹窗。
+- 状态管理：React Context 或 Zustand；数据持久化用 Expo SQLite（或 WatermelonDB 轻量版）。
+- UI：React Native 原生组件 + 第三方图表库（如 react-native-gifted-charts 或 victory-native），禁止依赖需单独付费的运行时。
+- 本地通知：expo-notifications，支持每日提醒与完成提醒。
+- 时区：Asia/Shanghai；所有日期按本地自然日处理。
+- 打包：EAS Build 配置；Android 输出 APK/AAB；iOS 输出 Simulator build 或 Archive。首次运行自动创建本地数据库与默认习惯示例。
+
+## 三、习惯输入与解析
+支持三种方式创建习惯：手动新建（名称、图标、颜色、每周目标天数、每日提醒时间）；从预设模板快速创建（如早起、喝水、运动、阅读、冥想）；批量导入 JSON 备份文件。 habit 字段校验：名称不能为空且不超过 30 字；每周目标天数 1～7；颜色必须是十六进制色值；图标从预设列表选择。批量导入按 habit_id 去重，重复项提示并跳过。
+
+## 四、核心数据模型与字段解析
+至少建立以下表。habits：id TEXT PRIMARY KEY、name TEXT NOT NULL、icon TEXT、color TEXT、weekly_goal INTEGER DEFAULT 7、reminder_time TEXT、reminder_enabled INTEGER DEFAULT 0、created_at TEXT、archived INTEGER DEFAULT 0、sort_order INTEGER。checkins：id TEXT PRIMARY KEY、habit_id TEXT、checked_at TEXT、date TEXT（YYYY-MM-DD）、note TEXT、created_at TEXT；复合索引 habit_id + date。settings：key TEXT PRIMARY KEY、value TEXT。exports：id TEXT PRIMARY KEY、filename TEXT、size INTEGER、created_at TEXT。
+
+明确字段校验：打卡记录同一 habit + 同一 date 只能有一条；checked_at 必须合法；备注不超过 200 字。非法数据不写入，返回友好错误。删除习惯进入归档状态，保留历史打卡记录，可恢复或彻底删除。
+
+## 五、执行策略
+ habit 列表按 sort_order 与 created_at 排序；打卡操作即时写入 SQLite 并刷新界面；统计查询使用预聚合或运行时聚合（数据量小，可接受运行时计算）；图表数据按周/月/年分组，缺失日期补 0 但不伪造打卡；导出长任务使用 expo-file-system 异步写入，避免卡 UI。
+
+## 六、异常分类与处理
+区分用户输入错误（名称过长、目标天数非法，表单即时提示）、数据库错误（Expo SQLite 不可用，提示用户重启）、通知权限错误（用户未授权，引导去设置）、文件操作错误（导出目录不可写，提示换目录）。单操作失败不影响其他习惯；全局数据库初始化失败显示错误页并提供重置选项。
+
+## 七、状态识别
+明确 habit 状态：活跃（默认）、归档、已删除。明确打卡状态：已完成、未打卡、跳过（用户主动标记，不计入连续天数）。连续天数计算规则：从最近一天向前连续有打卡的天数，中间有跳过或中断则归零；周目标完成率 = 本周已完成天数 / weekly_goal。不得把未来日期或时区切换错误误判为中断。
+
+## 八、本地通知与提醒
+支持为每个 habit 设置每日提醒时间（如 08:00）。使用 expo-notifications 在设备本地调度通知；用户授权失败时友好提示； habit 归档后自动取消对应通知。提供「今日待打卡」汇总通知（可开关），在用户设定时间推送今日未打卡习惯列表。通知点击打开应用并跳转到对应 habit。
+
+## 九、SQLite 数据结构
+数据库操作使用参数化 SQL；开启 WAL 模式（如底层支持）；所有表自动创建；升级时通过 PRAGMA table_info 检测并补充新字段。导出表记录每次备份文件路径与大小，便于历史管理。
+
+## 十、统计口径
+今日完成数 = 今日有打卡记录的活跃 habit 数；本周完成率 = 本周已完成天数 / 本周目标总天数；本月完成率 = 本月已完成天数 / 本月目标总天数；连续打卡天数按实际连续记录计算；最长连续天数取历史最大值。图表数据：近 7 天每日完成 habit 数折线图；本周各 habit 完成率柱状图；年度热图（类似 GitHub contributions，按日显示完成密度）。缺失数据补 0 并标注，不伪造打卡。
+
+## 十一、移动端界面总体风格
+iOS 与 Android 均使用平台风格或统一 Material You 风格；浅色主题为主，主色由 habit 颜色决定，红色仅用于删除/报错。底部固定 Tab：今日、习惯、统计、设置。顶部标题清晰，字体 16-20px；卡片圆角 12px，阴影适度。不做花哨动画，优先操作效率与可读性。必须显示免责声明：数据仅保存在本机，请定期导出备份。
+
+## 十二、主功能模块（固定顺序 Tab）
+今日 Tab：顶部显示今日日期与一句鼓励语；下方为待打卡 habit 列表，每项左侧图标、名称、目标进度，右侧圆形打卡按钮；点击即打卡并播放轻量反馈（震动 + 图标缩放）；已完成项置底并灰显。习惯 Tab：全部活跃 habit 列表；支持拖拽排序、长按编辑、左滑归档、点击打开 habit 详情（历史打卡日历、连续天数、编辑）。统计 Tab：顶部切换 周/月/年；折线图 + 柱状图 + 年度热图；下方显示本周/本月/本年完成率与连续天数。设置 Tab：分组卡片（通知管理、数据备份与恢复、主题、关于）。
+
+## 十三、 habit 详情与编辑
+点击 habit 进入详情页：顶部显示图标、名称、颜色、连续天数、本周完成率；中部为日历视图（本月每天是否打卡，点击可补打卡或取消）；下方为编辑入口（名称、图标、颜色、每周目标、提醒时间、归档、删除）。删除必须二次确认，默认归档而非彻底删除。支持补打卡昨日及之前日期，但不允许预打卡未来日期。
+
+## 十四、数据备份与恢复
+设置页提供导出备份：生成 JSON 文件（含 habits、checkins、settings），保存到用户选择目录（通过 expo-document-picker 或 share sheet）。提供导入恢复：选择 JSON 文件，预览条目数与冲突（同名 habit），用户确认后覆盖或合并。备份文件带版本号与导出时间，旧版本备份兼容导入。
+
+## 十五、失败与异常列表
+设置页提供「运行日志」入口：显示数据库错误、通知调度失败、导出导入失败等；支持按级别筛选、清空（二次确认）。 habit 打卡失败时顶部 Toast 提示真实原因，不要只写「失败」。
+
+## 十六、外部集成（可选）
+支持 Apple Health / Google Fit 同步（如运动类 habit），标记为可选功能；未授权时不阻塞核心流程。支持通过系统分享 Sheet 分享周完成率卡片为图片。
+
+## 十七、设置页
+分组卡片纵向排列：通知管理（全局开关、每日汇总时间、各 habit 提醒时间列表）；数据（导出备份、导入恢复、清理旧记录、重置应用）；外观（主题色、是否跟随系统深色模式）；关于（版本号、免责声明、开源协议）。所有操作保存即生效，重置应用需二次确认。
+
+## 十八、只读数据查询（开发调试）
+提供隐藏调试命令或开发者模式（非用户入口），只读查询 SQLite：list_habits、list_checkins、get_summary。仅用于开发调试，不暴露给普通用户。
+
+## 十九、运行日志
+日志持久化到 SQLite 或文件，应用重启不丢失。字段：时间、级别、来源、消息、完整详情。支持导出日志文件。错误展示真实异常信息。
+
+## 二十、数据清理
+设置页显示数据库大小与打卡记录条数。提供一键清理：删除归档 habit 超过 365 天的打卡记录；保留每个 habit 一条最早基线用于连续天数计算。清理前二次确认并报告释放空间。
+
+## 二十一、稳定性和安全要求
+不写死用户数据路径；敏感信息（如 Health 授权 token）不输出到日志；数据库写入使用事务；任何操作失败不让应用崩溃；处理长 habit 名、空备注、时区切换、夏令时无关的上海时区；应用进入后台后通知仍正常触发。
+
+## 二十二、打包和项目结构
+建议目录：app/（页面）、components/（组件）、hooks/、services/（database.js、notifications.js、backup.js）、constants/、assets/、eas.json、app.json、package.json、README.md。主产物：Android APK/AAB、iOS build。构建后校验产物存在并报告路径大小。
+
+## 二十三、执行指令
+现在请开始直接创建完整项目。先检查当前工作目录是否已有用户文件与数据，保留现有内容；然后依次完成项目初始化、数据层、界面、通知、调试与打包；不要中途只向我描述计划，也不要在实现一半时停止。若遇到非关键歧义，请按以上规格做合理决定并继续；只有缺少必须的图标源文件时才允许使用临时图标并注明替换位置。`,
+  },
+  {
+    sub: 'browser-extension',
+    slug: 'web-highlighter-extension',
+    title: '浏览器插件完整开发提示词：网页标注与笔记',
+    summary: '以「网页高亮标注与侧边笔记」为例，使用 Manifest V3 构建 Chrome / Edge / Firefox 浏览器扩展的完整细则范例。',
+    tags: ['浏览器插件', 'Chrome 扩展', 'Manifest V3', '网页标注', '范例'],
+    model: '通用',
+    level: '高级',
+    body: `请直接为我开发并交付一套完整可运行、可打包、可上架的浏览器扩展（Chrome / Edge / Firefox）。不要只输出方案、界面示例或伪代码；请创建完整项目、本地加载调试、修复错误，并给出可发布产物。
+
+扩展定位：一款网页高亮标注与侧边笔记工具。用户可以在任意网页上选中文本并添加高亮（多种颜色）、添加批注、将页面保存到本地索引；所有数据默认保存在浏览器 IndexedDB 中，支持按域名 / 标签 / 时间检索历史标注，支持导出 JSON 备份。
+
+执行要求：请严格按照下方规格一次性完成。
+
+## 一、交付目标
+交付内容至少包括：Manifest V3 完整源码（content script、background service worker、popup、options page、side panel）、高亮与批注模块、IndexedDB 数据层、搜索与筛选界面、导入导出、依赖清单、README、各浏览器打包脚本（zip / crx / xpi）、商店上架素材（截图尺寸建议）。代码必须分层清晰（content / background / popup / options / storage / ui），不要把全部功能堆在一个文件里。
+
+## 二、技术栈约束
+- 清单：Manifest V3，兼容 Chrome、Edge、Firefox（必要时使用 polyfill 或条件分支）。
+- 前端：原生 JavaScript 或 Vite + React / Vue（禁止依赖需联网的运行时）。
+- 存储：IndexedDB（Dexie.js 或原生 IDB），所有对象存储自动创建与迁移；支持导出导入 JSON。
+- 内容脚本：注入页面进行文本选区与高亮渲染，使用 Shadow DOM 或独立 class 避免污染页面样式。
+- 后台脚本：service worker，处理跨标签通信、右键菜单、快捷键、导入导出文件。
+- 时区：Asia/Shanghai；所有时间按本地时间保存与显示。
+- 打包：vite build 或 webpack；输出 dist/ 目录；Chrome/Edge 用 zip，Firefox 用 xpi（或 source zip）。
+
+## 三、输入与解析
+支持三种标注入口：鼠标选中文本后点击悬浮工具条；右键菜单「添加高亮」；快捷键（默认 Alt+H）。支持为每条高亮选择颜色（黄/绿/蓝/粉/紫）、添加批注（最多 500 字）、添加标签（多个，以空格分隔）。支持保存整页：点击扩展图标选择「保存页面」，记录页面标题、URL、截图（可选）、所有已存在高亮。
+
+解析规则：选区使用 Range 与 DOM 序列化保存；页面重排后通过文本指纹（前后各 32 字符 + 段落路径）重新定位；定位失败时显示「原文已变化」标记。URL 规范化：去除常见跟踪参数（utm_source、fbclid 等），同一页面不同跟踪链接视为同一文档。
+
+## 四、核心字段解析
+高亮 highlight 对象：id（UUID）、url（规范化 URL）、pageTitle、color、text（选中文本，最多 1000 字）、prefix（选区前 32 字符）、suffix（选区后 32 字符）、xpath / cssSelector、note（批注）、tags（数组）、createdAt、updatedAt。页面 page 对象：id（URL 哈希）、url、title、domain、favicon、savedAt、highlightCount。标签 tag 对象：name、color、count。
+
+字段校验：text 不能为空；color 必须是预设值；tags 每个不超过 20 字；note 不超过 500 字。非法数据不写入，返回 Toast 提示。
+
+## 五、执行策略
+选中文本后立即显示悬浮工具条（位置跟随选区结束点）；点击颜色即高亮；批注在弹窗中输入。高亮渲染在 content script 中异步执行，避免阻塞页面滚动。保存页面与导出操作在 background 中进行，使用 offscreen document 处理文件读写（Chrome 限制 service worker 不能直接用部分 API）。大页面高亮数量多时分批渲染。
+
+## 六、异常分类与处理
+区分页面 DOM 结构变化导致定位失败（显示「原文已变化」并允许手动重新选择）、存储配额已满（提示导出清理）、权限不足（content script 无法注入某些页面，如 Chrome 商店）、文件导入格式错误（提示 JSON 校验失败）。单条高亮失败不影响其他高亮显示；service worker 异常捕获并写入日志。
+
+## 七、状态识别
+高亮状态：正常、原文已变化、已删除（软删除）。页面状态：已保存、仅高亮未保存、已归档。明确「原文已变化」与「高亮丢失」差异：前者是页面内容变化但扩展仍保留记录，后者是 IndexedDB 数据被清除。只有出现明确特征时才转换状态。
+
+## 八、定时任务与同步
+可选每日自动备份：service worker 使用 alarms API 每天 02:00 导出最新数据到 Downloads 目录（文件名带日期）。支持手动同步到 WebDAV / GitHub Gist（可选，配置在 options page），实现跨浏览器同步；未配置时不阻塞本地功能。
+
+## 九、IndexedDB 数据结构
+对象存储：highlights（id 主键、url 索引、createdAt 索引、tag 索引）、pages（url 主键、domain 索引、savedAt 索引）、tags（name 主键）、settings（key 主键）、logs（自增 ID、time 索引）。使用 IndexedDB 事务写入，批量操作使用单事务。升级时通过 onupgradeneeded 检测并补充对象存储与索引，不要求用户清除数据。
+
+## 十、统计口径
+总高亮数 = highlights 非删除记录数；本周新增 = 本周 createdAt 记录数；最常访问域名 = 按 domain 分组计数；标签分布 = 按 tag 分组计数；连续使用天数 = 有 createdAt 或 updatedAt 的自然日连续数。所有统计来自 IndexedDB 真实记录，不伪造。
+
+## 十一、扩展界面总体风格
+Popup 宽度 380px，高度自适应；Options / Side Panel 使用浅色主题，主色靛蓝，红色仅删除/报错。字体优先系统默认无衬线。高亮颜色预设 5 种，饱和度适中，在网页上清晰可见。不做花哨动画，优先响应速度。
+
+## 十二、主功能模块
+Popup：顶部搜索框；中部最近 5 条高亮列表；底部按钮（打开侧边栏、保存当前页、打开设置）。Side Panel：左侧导航（全部高亮、按域名、按标签、已归档、设置）；右侧高亮卡片（页面标题、选中文本、批注、标签、时间、编辑/删除）。Options Page：通用设置、导入导出、快捷键、存储管理、关于。Content Script：悬浮工具条、页面内高亮渲染、原文变化检测。
+
+## 十三、搜索与筛选
+全部高亮页支持：关键词搜索（同时匹配 text、note、pageTitle、tags）；按域名筛选；按标签筛选；按颜色筛选；按时间范围筛选（最近 7 天 / 30 天 / 自定义）。搜索结果按时间倒序；双击高亮卡片可在原页面重新定位并滚动到高亮处（若页面仍打开）。
+
+## 十四、智能去重与归档
+同一 URL 多次保存时去重高亮（按 id）；同一选区重复高亮时提示已存在。页面可归档，归档后不再出现在默认列表但保留数据。删除高亮/页面需二次确认；删除后软删除保留 30 天，可在「回收站」恢复或彻底清理。
+
+## 十五、失败 / 异常列表
+Side Panel 提供「运行日志」入口：显示 content script 注入失败、存储错误、导入导出错误等；支持按级别筛选、清空。高亮渲染失败时在原位置显示占位提示，点击可重新定位。
+
+## 十六、外部通知 / 集成
+支持导出 Markdown/HTML 报告：将某域名或某标签下的所有高亮导出为带链接的 Markdown 文件或 HTML 文件。支持分享单条高亮为图片（使用 offscreen document + html2canvas 或 dom-to-image）。
+
+## 十七、设置页
+分组卡片：通用（默认高亮颜色、是否显示悬浮工具条、是否开启每日备份）；存储（已用空间、导出备份、导入恢复、清理回收站）；快捷键（高亮、保存页面、打开侧边栏）；同步（WebDAV / GitHub Gist 配置）；关于（版本号、免责声明、隐私说明）。
+
+## 十八、只读数据查询
+提供 options page 中的「开发者工具」入口（可折叠隐藏），只读查询 IndexedDB：list_highlights、list_pages、get_summary、search_by_tag。明确只读，不提供删除/修改按钮。
+
+## 十九、运行日志
+日志持久化到 IndexedDB，扩展重启不丢失。字段：时间、级别、来源、消息、详情。支持导出 CSV、清空（二次确认）。失败展示真实异常信息。
+
+## 二十、数据清理
+设置页实时显示 IndexedDB 占用大小。提供一键清理：删除回收站中超过 30 天的记录；清理重复或空 text 高亮。清理前二次确认并报告释放空间。
+
+## 二十一、稳定性和安全要求
+不写死用户数据路径；content script 使用独立 class/Shadow DOM，避免与页面样式冲突；不采集用户隐私内容（如密码框、输入框内容）；日志不输出完整 URL 中的敏感参数；数据库操作使用事务；任何失败不让扩展崩溃；处理大页面长文本、特殊 DOM 结构、SPA 路由变化。
+
+## 二十二、打包和项目结构
+建议目录：src/content/、src/background/、src/popup/、src/options/、src/sidepanel/、src/storage/、src/utils/、public/manifest.json、vite.config.js、package.json、README.md、scripts/build-chrome.js、scripts/build-firefox.js。主产物：dist-chrome.zip、dist-edge.zip、dist-firefox.xpi。构建后校验 manifest 有效、文件存在、图标齐全。
+
+## 二十三、执行指令
+现在请开始直接创建完整项目。先检查当前工作目录是否已有用户文件与数据，保留现有内容；然后依次完成 manifest、content script、background、popup、options、side panel、数据层、调试与打包；不要中途只向我描述计划，也不要在实现一半时停止。若遇到非关键歧义，请按以上规格做合理决定并继续；只有缺少必须的图标源文件时才允许使用临时图标并注明替换位置。`,
+  },
+  {
+    sub: 'api-service',
+    slug: 'price-monitor-api-service',
+    title: 'API 服务完整开发提示词：价格监控与降价通知',
+    summary: '以「电商价格监控与降价 Webhook 通知」为例，构建可部署后端 API 服务的完整细则范例。',
+    tags: ['API 服务', '后端', '价格监控', 'Webhook', '范例'],
+    model: '通用',
+    level: '高级',
+    body: `请直接为我开发并交付一套完整可运行、可部署的后端 API 服务（目标：本地运行 + 一键 Docker 部署）。不要只输出方案或伪代码；请创建完整项目、本地运行调试、修复错误，并给出可部署产物。
+
+服务定位：一个电商价格监控与降价通知服务。用户通过 API 添加商品 URL 或商品 ID，服务定时抓取商品公开价格，当价格低于用户设定阈值或发生降价时，通过 Webhook 发送通知。所有数据保存在服务端 Postgres（默认）或 SQLite（开发模式）。
+
+执行要求：请严格按照下方规格一次性完成。
+
+## 一、交付目标
+交付内容至少包括：后端 API 源码、数据库初始化与自动迁移、定时价格抓取任务、Webhook 通知模块、REST API 文档（OpenAPI / Swagger）、依赖清单、Dockerfile + docker-compose、README、环境变量示例、构建脚本。代码分层：路由 / 服务层 / 数据访问层 / 采集层 / 通知层，不堆在一个文件。
+
+## 二、技术栈约束
+- 运行时：Python 3.11+（FastAPI）或 Node.js 20 LTS（Express / NestJS）。以下以 Python + FastAPI 为例，若用 Node 需保持同等级分层。
+- 框架：FastAPI；异步请求使用 httpx；任务调度使用 APScheduler 或 Celery（单机 APScheduler 即可）。
+- 数据库：Postgres 13+ 生产默认，SQLite（WAL）开发模式可选；SQLAlchemy 2.0 + Alembic 迁移；所有表自动创建，旧库缺字段自动迁移。
+- 缓存与锁：Redis 可选，用于分布式锁与任务去重；单机可用文件锁或数据库 advisory lock。
+- 浏览器兜底：Playwright 或 httpx + curl_cffi，优先直采接口，失败时静默浏览器兜底。
+- 部署：Docker 多阶段构建；docker-compose 一键起 API + 数据库 + Redis（可选）+ 定时任务。
+- 时区：Asia/Shanghai；所有价格时间按自然时间处理。
+
+## 三、商品输入与解析
+支持 API 添加商品：POST /products 接收 url（必需）、name（可选，未提供则抓取后回填）、target_price（可选）、webhook_url（可选，也可使用全局 Webhook）。支持批量导入 CSV：product_url, target_price, webhook_url。支持解析常见电商 URL：京东（jd.com）、淘宝/天猫（tmall.com/taobao.com）、亚马逊（amazon.cn/com）、拼多多（pinduoduo.com）等；无法识别的域名返回 400 并说明不支持。
+
+解析规则：从 URL 提取商品 ID；规范化 URL（去除跟踪参数）；同一商品按平台+ID 去重；批量导入结束显示成功、重复、不支持平台、解析失败各多少。
+
+## 四、核心接口与字段解析
+商品 product 对象：id（UUID）、platform、product_id、url、name、current_price、currency、last_price、last_checked_at、status（active/paused/delist/error）、target_price、global_webhook_override、created_at、updated_at。价格快照 price_snapshot 对象：id、product_id、price、currency、captured_at、capture_method（api/browser/failed）、raw_response（文本，限制大小）。
+
+字段校验：url 必须合法且为 http/https；target_price 必须为非负数；webhook_url 必须合法（若提供）。非法请求返回 4xx 并说明字段错误。
+
+## 五、执行策略
+价格抓取采用多级兜底：1) 直采商品接口或页面结构化数据；2) 失败后使用 Playwright 静默浏览器；3) 仍失败标记为 error 并进入失败队列。每个商品独立执行，不允许先全部直采再统一浏览器。请求间随机等待 1～3 秒，可在设置调整。长任务放入后台线程 / worker，API 接口保持响应。
+
+## 六、异常分类、重试与熔断
+区分临时失败（5xx、超时、连接重置，重试 3 次，指数退避）、风控（403/验证码/461，达到阈值后冷却 30 分钟，禁止高频循环）、明确下架（页面返回 404 或包含「商品已下架」「商品不存在」，状态改为 delist）、解析失败（字段缺失，记录失败原因）。单商品失败不影响其他商品；所有错误写入日志。
+
+## 七、状态识别
+商品状态：active（正常监控）、paused（用户暂停）、delist（明确下架）、error（连续失败超过阈值）。价格状态：price_drop（降价）、price_up（涨价）、price_stable（价格不变）、first_record（首次记录）。只有接口明确返回成功且字段完整时，空价格才可解释为真实 0；超时/状态码异常/解析失败一律判失败，不写假数据。
+
+## 八、定时任务与调度
+默认每 4 小时抓取一次（可配置）。使用 APScheduler 或 Celery beat；到点立即执行；同刻只能运行一轮，使用分布式锁防止重叠。用户在非整点启动服务后，不顺延为整点，按实际周期调度。抓取结果持久化后触发通知判断。
+
+## 九、数据库数据结构
+表：products（id 主键、platform+product_id 唯一索引、url、status 索引）、price_snapshots（id 主键、product_id + captured_at 索引、price 索引）、webhooks（id 主键、url、events、enabled）、alerts（id 主键、product_id、trigger_price、actual_price、sent_at、status）、settings（key 主键）、logs（自增 ID、时间、级别、来源、详情）。
+
+使用参数化 SQL；Postgres 使用事务；Alembic 管理迁移；开发模式 SQLite 开启 WAL，升级时通过 PRAGMA table_info 补字段。
+
+## 十、统计口径
+监控商品数 = products active + paused；今日降价数 = 今日 alerts 中 trigger 为 price_drop 的数量；今日均价 = 今日所有成功抓取价格的平均值；降价幅度 = (last_price - current_price) / last_price；通知成功率 = 成功发送 Webhook 数 / 总发送数。缺失数据显「—」，不伪造 0。
+
+## 十一、API 接口总体风格
+RESTful + JSON；统一返回 { code, data, message }；HTTP 状态码符合语义：200 成功、201 创建、400 参数错误、404 资源不存在、429 限流、500 服务端错误。API 文档自动生成为 /docs（Swagger UI）。支持 API Key 认证（Header X-API-Key），默认开发模式允许空 Key。
+
+## 十二、主功能模块（REST 路由）
+POST /products：添加商品。GET /products：列表，支持按 status、platform 筛选，按 created_at 排序。GET /products/{id}：详情与最近 24 小时价格曲线。PUT /products/{id}：更新 target_price、webhook_url、status。DELETE /products/{id}：软删除。POST /products/{id}/check：立即手动抓取。GET /alerts：通知历史列表。GET /snapshots：价格快照列表。GET /stats：仪表盘统计。GET /logs：运行日志。POST /webhooks/test：测试 Webhook。
+
+## 十三、智能去重与批量操作
+同一 platform + product_id 去重；批量添加时返回每条结果；支持批量暂停/恢复/删除；批量操作使用事务，部分失败不影响其他。
+
+## 十四、失败 / 异常列表
+GET /logs 提供失败记录：product_id、platform、失败时间、失败原因、重试次数。支持对失败商品手动重试：POST /products/{id}/retry。重试成功后状态恢复 active，失败次数清零。明确下架商品移入 delist，不再自动重试。
+
+## 十五、分析视图与单品详情
+GET /products/{id} 返回：商品基本信息、当前价格、上次价格、价格变化率、近 7 天 / 30 天价格折线图数据、最近 20 条快照、通知历史。GET /stats 返回：监控商品总数、今日降价数、今日抓取成功数、失败数、通知发送数、各平台分布。
+
+## 十六、外部通知 / Webhook
+当 price_drop 或 price <= target_price 时触发 Webhook。POST 用户配置的 URL，Payload 包含：event（price_drop / target_hit）、product（id, name, url, current_price, last_price, currency）、timestamp、signature（HMAC-SHA256，可选）。支持 Webhook 重试：失败时按 1/5/15 分钟间隔重试 3 次；连续失败标记 webhook 为 disabled。支持全局 Webhook 与 per-product Webhook 覆盖。提供 /webhooks/test 发送测试事件。
+
+## 十七、设置页 / 配置接口
+环境变量：DATABASE_URL、REDIS_URL（可选）、API_KEY、CHECK_INTERVAL_MINUTES、DEFAULT_WEBHOOK_URL、LOG_LEVEL、MAX_RETRIES、RATE_LIMIT_RPM。运行时可通过 POST /settings 更新部分配置（不暴露数据库密码）。配置校验：URL 合法、数字非负。
+
+## 十八、只读查询 API
+提供只读端点（或独立只读 Token）：GET /readonly/products、GET /readonly/snapshots、GET /readonly/stats。只读端点不允许 POST/PUT/DELETE；与主界面使用同一套统计函数，保证结果一致。
+
+## 十九、运行日志
+日志持久化到数据库或文件，服务重启不丢失。字段：时间、级别、来源、product_id、消息、完整详情。支持按级别 / 来源 / product_id 筛选、导出 CSV。失败展示真实异常信息。
+
+## 二十、数据清理
+GET /stats 实时显示数据库大小与快照数量。提供一键清理 API：POST /cleanup，删除超过 90 天的 price_snapshots，但每个 product 保留一条最早基线；删除超过 30 天的 logs；清理前二次确认（通过 API 调用需显式 confirm=true），清理后报告删除条数与释放空间。
+
+## 二十一、稳定性和安全要求
+不写死数据库密码与 API Key；敏感信息通过环境变量注入；日志不输出完整 Webhook Secret、Cookie 或数据库密码；数据库写入使用事务；外部请求设置超时；任何失败不让 API 进程崩溃；支持长商品名、空价格、跨时区、上海时区夏令时无关。API Key 失败返回 401，不泄露内部错误。
+
+## 二十二、打包和项目结构
+建议目录：app/（FastAPI 路由）、services/（scraper.py、notifier.py、scheduler.py）、models/、schemas/、db/（database.py、migrations/）、clients/（browser.py、http.py）、config/、tests/、Dockerfile、docker-compose.yml、.env.example、README.md、scripts/run_migrations.sh。主产物：Docker image；docker-compose up 一键启动。构建后校验容器健康检查通过、数据库迁移可重放。
+
+## 二十三、执行指令
+现在请开始直接创建完整项目。先检查当前工作目录是否已有用户文件与数据，保留现有内容；然后依次完成后端、数据库、采集、通知、定时任务、本地调试与 Docker 化；不要中途只向我描述计划，也不要在实现一半时停止。若遇到非关键歧义，请按以上规格做合理决定并继续；只有缺少必须的图标源文件时才允许使用临时资源并注明替换位置。`,
   },
 ];

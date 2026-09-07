@@ -241,6 +241,9 @@ export const TAXONOMY = [
       { id: 'desktop-app', name: '桌面应用' },
       { id: 'web-app', name: 'Web 应用' },
       { id: 'cli-tool', name: '命令行工具' },
+      { id: 'mobile-app', name: '移动应用' },
+      { id: 'browser-extension', name: '浏览器插件' },
+      { id: 'api-service', name: 'API 服务' },
     ],
   },
 ];

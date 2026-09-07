@@ -157,5 +157,8 @@ export const I18N_SUB = {
     'desktop-app': { zh: '桌面应用', en: 'Desktop app',    ja: 'デスクトップアプリ', ko: '데스크톱 앱',  es: 'App de escritorio', fr: 'App bureau',   de: 'Desktop-App',  ru: 'Десктоп' },
     'web-app':   { zh: 'Web 应用', en: 'Web app',         ja: 'Web アプリ',     ko: '웹 앱',          es: 'App web',      fr: 'App web',      de: 'Web-App',      ru: 'Веб-приложение' },
     'cli-tool':  { zh: '命令行工具', en: 'CLI tool',      ja: 'CLI ツール',     ko: 'CLI 도구',       es: 'Herramienta CLI', fr: 'Outil CLI',    de: 'CLI-Tool',     ru: 'CLI-утилита' },
+    'mobile-app': { zh: '移动应用', en: 'Mobile app',     ja: 'モバイルアプリ',  ko: '모바일 앱',      es: 'App móvil',    fr: 'App mobile',   de: 'Mobile App',   ru: 'Мобильное приложение' },
+    'browser-extension': { zh: '浏览器插件', en: 'Browser extension', ja: 'ブラウザ拡張', ko: '브라우저 확장', es: 'Extensión de navegador', fr: 'Extension navigateur', de: 'Browser-Erweiterung', ru: 'Браузерное расширение' },
+    'api-service': { zh: 'API 服务', en: 'API service',   ja: 'API サービス',   ko: 'API 서비스',     es: 'Servicio API', fr: 'Service API',  de: 'API-Service',  ru: 'API-сервис' },
   },
 };
