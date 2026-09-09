@@ -284,7 +284,9 @@ for (const file of files) {
     problems.push(`${rel}: 未知分类 "${cat}"（请检查 taxonomy.js）`);
     continue;
   }
-  if (!catDef.subs.some((s) => s.id === sub)) {
+  // 允许无子分类的分类（如 skills 直接是顶级目录）
+  const validSub = !catDef.subs || catDef.subs.length === 0 ? true : catDef.subs.some((s) => s.id === sub);
+  if (!validSub) {
     problems.push(`${rel}: 未知子分类 "${cat}/${sub}"（请检查 taxonomy.js）`);
     continue;
   }
@@ -344,6 +346,26 @@ for (const it of items) {
 }
 
 const taxonomy = TAXONOMY.map((c) => {
+  // 无子分类的分类（如 skills）直接使用 category count
+  if (!c.subs || c.subs.length === 0) {
+    const count = counts.get(`${c.id}/_`) || counts.get(`${c.id}/`) || 0;
+    // 也检查所有以该 category 开头的 key
+    let catCount = 0;
+    for (const [k, v] of counts) {
+      if (k.startsWith(`${c.id}/`)) catCount += v;
+    }
+    return {
+      id: c.id,
+      name: c.name,
+      i18n: I18N_CAT[c.id] || { zh: c.name, en: c.name, ja: '', ko: '', es: '', fr: '', de: '', ru: '' },
+      icon: c.icon,
+      color: c.color,
+      desc: c.desc,
+      count: catCount,
+      subs: [],
+    };
+  }
+
   const subs = c.subs
     .map((s) => ({
       id: s.id,

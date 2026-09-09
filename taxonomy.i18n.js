@@ -162,7 +162,4 @@ export const I18N_SUB = {
     'browser-extension': { zh: '浏览器插件', en: 'Browser extension', ja: 'ブラウザ拡張', ko: '브라우저 확장', es: 'Extensión de navegador', fr: 'Extension navigateur', de: 'Browser-Erweiterung', ru: 'Браузерное расширение' },
     'api-service': { zh: 'API 服务', en: 'API service',   ja: 'API サービス',   ko: 'API 서비스',     es: 'Servicio API', fr: 'Service API',  de: 'API-Service',  ru: 'API-сервис' },
   },
-  skills: {
-    top: { zh: '热门收录', en: 'Top picks', ja: '人気スキル', ko: '인기 스킬', es: 'Top picks', fr: 'Top picks', de: 'Top-Auswahl', ru: 'Топ скиллов' },
-  },
 };
