@@ -52,6 +52,7 @@
     'side.total-a':        '共 ',
     'side.total-b':        ' 条提示词',
     'side.note':           '数据由 prompts/ 构建生成',
+    'side.sep-skills':     'Skills',
     /* —— toolbar —— */
     'toolbar.all':         '全部提示词',
     'toolbar.fav':         '我的收藏',
@@ -147,6 +148,7 @@
     'side.total-a':        'Total: ',
     'side.total-b':        ' prompts',
     'side.note':           'Built from prompts/ at build time',
+    'side.sep-skills':     'Skills',
     'toolbar.all':         'All prompts',
     'toolbar.fav':         'My favorites',
     'toolbar.search-prefix': 'Search: "',
@@ -228,6 +230,7 @@
     'side.total-a':        '全 ',
     'side.total-b':        ' 件',
     'side.note':           'prompts/ からビルド時に生成',
+    'side.sep-skills':     'Skills',
     'toolbar.all':         'すべてのプロンプト',
     'toolbar.fav':         'お気に入り',
     'toolbar.search-prefix': '検索：',

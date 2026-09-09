@@ -232,6 +232,16 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
 .tree::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
 .tree::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
 
+/* 分隔线：提示词库 / Skills 两大区块 */
+.tg-sep {
+  display: flex; align-items: center; gap: 8px;
+  margin: 10px 8px 6px; font-size: 10.5px; font-weight: 700;
+  letter-spacing: .8px; text-transform: uppercase; color: var(--text-3);
+}
+.tg-sep::before, .tg-sep::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-2);
+}
+
 .tg { margin-bottom: 2px; }
 .tg-head {
   width: 100%; display: flex; align-items: center; gap: 9px;

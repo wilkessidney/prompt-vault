@@ -241,27 +241,40 @@
 
   function renderTree() {
     var tree = $('#tree');
-    tree.innerHTML = DATA.taxonomy.map(function (c) {
-      var catName = pickCat(c.id);
-      return '' +
-        '<div class="tg" data-cat="' + c.id + '" style="--c:' + c.color + '">' +
-          '<button class="tg-head" data-act="toggle-cat" data-cat="' + c.id + '">' +
-            '<span class="tg-icon"><svg class="ic"><use href="#i-' + c.icon + '"/></svg></span>' +
-            '<span class="tg-name">' + esc(catName) + '</span>' +
-            '<span class="tg-n">' + c.count + '</span>' +
-            '<svg class="ic ic-chev"><use href="#i-chev"/></svg>' +
-          '</button>' +
-          '<div class="tg-subs">' +
-            '<button class="sub" data-act="sub" data-cat="' + c.id + '" data-sub="">' +
-              '<span>' + esc(t('side.all')) + ' ' + esc(catName) + '</span><span class="sub-n">' + c.count + '</span>' +
+    // 分成「提示词库」和「Skills」两大组
+    var prompts = DATA.taxonomy.filter(function (c) { return c.id !== 'skills'; });
+    var skills = DATA.taxonomy.filter(function (c) { return c.id === 'skills'; });
+
+    function groupHtml(items, section) {
+      return items.map(function (c) {
+        var catName = pickCat(c.id);
+        return '' +
+          '<div class="tg" data-cat="' + c.id + '" style="--c:' + c.color + '">' +
+            '<button class="tg-head" data-act="toggle-cat" data-cat="' + c.id + '">' +
+              '<span class="tg-icon"><svg class="ic"><use href="#i-' + c.icon + '"/></svg></span>' +
+              '<span class="tg-name">' + esc(catName) + '</span>' +
+              '<span class="tg-n">' + c.count + '</span>' +
+              '<svg class="ic ic-chev"><use href="#i-chev"/></svg>' +
             '</button>' +
-            c.subs.map(function (s) {
-              return '<button class="sub" data-act="sub" data-cat="' + c.id + '" data-sub="' + s.id + '">' +
-                '<span>' + esc(pickSub(c.id, s.id)) + '</span><span class="sub-n">' + s.count + '</span></button>';
-            }).join('') +
-          '</div>' +
-        '</div>';
-    }).join('');
+            '<div class="tg-subs">' +
+              '<button class="sub" data-act="sub" data-cat="' + c.id + '" data-sub="">' +
+                '<span>' + esc(t('side.all')) + ' ' + esc(catName) + '</span><span class="sub-n">' + c.count + '</span>' +
+              '</button>' +
+              (c.subs || []).map(function (s) {
+                return '<button class="sub" data-act="sub" data-cat="' + c.id + '" data-sub="' + s.id + '">' +
+                  '<span>' + esc(pickSub(c.id, s.id)) + '</span><span class="sub-n">' + s.count + '</span></button>';
+              }).join('') +
+            '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    var html = groupHtml(prompts, 'prompts');
+    if (skills.length) {
+      html += '<div class="tg-sep"><span>' + esc(t('side.sep-skills')) + '</span></div>';
+      html += groupHtml(skills, 'skills');
+    }
+    tree.innerHTML = html;
   }
 
   function syncTree() {
