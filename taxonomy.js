@@ -246,6 +246,16 @@ export const TAXONOMY = [
       { id: 'api-service', name: 'API 服务' },
     ],
   },
+  {
+    id: 'skills',
+    name: 'Skills',
+    icon: 'zap',
+    color: '#f59e0b',
+    desc: '来自 skills.sh 的已验证 Agent Skills，可直接安装到 Claude Code / Codex / Cursor',
+    subs: [
+      { id: 'top', name: '热门收录' },
+    ],
+  },
 ];
 
 export const CATEGORY_MAP = new Map(TAXONOMY.map((c) => [c.id, c]));

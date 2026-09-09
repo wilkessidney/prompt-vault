@@ -21,6 +21,7 @@ export const I18N_CAT = {
   prompteng:{ zh: '提示词工程', en: 'Prompt Engineering', ja: 'プロンプトエンジニアリング', ko: '프롬프트 엔지니어링', es: 'Ingeniería de prompts', fr: 'Ingénierie de prompts', de: 'Prompt Engineering', ru: 'Промпт-инжиниринг' },
   play:     { zh: '角色扮演与娱乐', en: 'Roleplay & Fun', ja: 'ロールプレイと娯楽', ko: '롤플레이와 엔터테인먼트', es: 'Juego de roles y diversión', fr: 'Jeu de rôle et divertissement', de: 'Rollen­spiel & Spaß', ru: 'Ролевые игры и развлечения' },
   project:  { zh: '项目开发', en: 'Project Dev', ja: 'プロジェクト開発', ko: '프로젝트 개발', es: 'Desarrollo de proyecto', fr: 'Développement de projet', de: 'Projektentwicklung', ru: 'Разработка проекта' },
+  skills:   { zh: 'Skills', en: 'Skills', ja: 'スキル', ko: '스킬', es: 'Skills', fr: 'Skills', de: 'Skills', ru: 'Скиллы' },
 };
 
 export const I18N_SUB = {
@@ -160,5 +161,8 @@ export const I18N_SUB = {
     'mobile-app': { zh: '移动应用', en: 'Mobile app',     ja: 'モバイルアプリ',  ko: '모바일 앱',      es: 'App móvil',    fr: 'App mobile',   de: 'Mobile App',   ru: 'Мобильное приложение' },
     'browser-extension': { zh: '浏览器插件', en: 'Browser extension', ja: 'ブラウザ拡張', ko: '브라우저 확장', es: 'Extensión de navegador', fr: 'Extension navigateur', de: 'Browser-Erweiterung', ru: 'Браузерное расширение' },
     'api-service': { zh: 'API 服务', en: 'API service',   ja: 'API サービス',   ko: 'API 서비스',     es: 'Servicio API', fr: 'Service API',  de: 'API-Service',  ru: 'API-сервис' },
+  },
+  skills: {
+    top: { zh: '热门收录', en: 'Top picks', ja: '人気スキル', ko: '인기 스킬', es: 'Top picks', fr: 'Top picks', de: 'Top-Auswahl', ru: 'Топ скиллов' },
   },
 };

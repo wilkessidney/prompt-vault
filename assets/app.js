@@ -467,11 +467,20 @@
     var summary = pick(it, 'summary');
     var catName = pickCat(it.category);
     var subName = pickSub(it.category, it.subcategory);
+    var isSkill = it.category === 'skills';
+    var activeTab = 'prompt';
 
     $('#viewHome').hidden = true;
     var d = $('#viewDetail');
     d.hidden = false;
     document.title = title + ' · PromptVault';
+
+    // Skill-specific meta chips
+    var skillMeta = '';
+    if (isSkill) {
+      if (it.stars) skillMeta += '<span class="mchip">' + esc(t('detail.skill-stars')) + ' <b>' + it.stars.toLocaleString() + '</b></span>';
+      if (it.author) skillMeta += '<span class="mchip">' + esc(t('detail.skill-author')) + ' <b>' + esc(it.author) + '</b></span>';
+    }
 
     d.innerHTML = '' +
       '<div class="dtl" style="--c:' + c.color + '">' +
@@ -490,6 +499,7 @@
             '<span class="mchip">' + esc(t('detail.chars-a')) + '<b>' + it.chars + '</b>' + esc(t('detail.chars-b')) + '</span>' +
             (it.variables.length ? '<span class="mchip">' + esc(t('detail.vars-a')) + '<b>' + it.variables.length + '</b>' + esc(t('detail.vars-b')) + '</span>' : '') +
             (it.source ? '<a class="mchip mchip-src" href="' + esc(it.source) + '" target="_blank" rel="noopener">' + esc(t('detail.src')) + ' <b>↗</b></a>' : '') +
+            skillMeta +
           '</div>' +
           '<div class="dtl-act">' +
             '<button class="btn-p" data-act="copy-raw"><svg class="ic"><use href="#i-copy"/></svg><span>' + esc(t('detail.copy-raw')) + '</span></button>' +
@@ -500,12 +510,41 @@
           '</div>' +
         '</div>' +
 
+        // Tab switcher for skills
+        (isSkill ? '<div class="skill-tabs">' +
+          '<button class="skill-tab active" data-tab="prompt">' + esc(t('detail.tab-prompt')) + '</button>' +
+          '<button class="skill-tab" data-tab="skill">' + esc(t('detail.tab-skill')) + '</button>' +
+        '</div>' : '') +
+
+        // Variables panel (for prompts only)
         (it.variables.length ? varsHtml(it) : '') +
 
-        '<div class="dtl-body" id="dtlBody"><div class="md" id="mdBody">' + pick(it, 'html') + '</div></div>' +
+        // Content panel with tab support
+        '<div class="dtl-body" id="dtlBody">' +
+          '<div class="skill-content" data-panel="prompt">' +
+            '<div class="md" id="mdBody">' + pick(it, 'html') + '</div>' +
+          '</div>' +
+          '<div class="skill-content skill-content-skill" data-panel="skill" style="display:none;">' +
+            '<pre class="skill-raw"><code>' + esc(it.content) + '</code></pre>' +
+          '</div>' +
+        '</div>' +
 
         relHtml(it) +
       '</div>';
+
+    // Bind tab switching for skills
+    if (isSkill) {
+      $$('.skill-tab').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var tab = this.dataset.tab;
+          $$('.skill-tab').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          $$('.skill-content').forEach(function(p) { p.style.display = 'none'; });
+          var panel = document.querySelector('.skill-content[data-panel="' + tab + '"]');
+          if (panel) panel.style.display = 'block';
+        });
+      });
+    }
 
     if (it.variables.length) bindVars(it, {});
     window.scrollTo(0, 0);

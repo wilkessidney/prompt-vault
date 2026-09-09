@@ -321,6 +321,10 @@ for (const file of files) {
     choices,
     content,
     html: markdown(content),
+    // Skills 扩展字段
+    stars: data.stars || 0,
+    author: data.author || '',
+    github: data.github || '',
     // 多语种字段：zh 来自原 title/summary/content（早年是手工内化翻译），en 同步一份；
     // 其他语种先空对象，由 translate.mjs 后续填充。
     i18n: {

@@ -84,6 +84,12 @@
     'detail.fill-hint-1':  '填写后正文会实时替换，可一键复制成稿',
     'detail.fill-hint-2':  '下拉项默认取第一项，也可点正文里的选项直接切换',
     'detail.rel':          '相关提示词',
+    /* —— Skills Tab —— */
+    'detail.tab-prompt':   '提示词',
+    'detail.tab-skill':    'Skill',
+    'detail.skill-src':    '来源',
+    'detail.skill-stars':  'Stars',
+    'detail.skill-author': '作者',
     /* —— 卡片/详情单位 —— */
     'tag.item':            '条',
     /* —— 空状态 —— */
@@ -250,6 +256,11 @@
     'detail.fill-hint-1':  'スロットを埋めると本文が即時に更新され、そのままコピーできます。',
     'detail.fill-hint-2':  'ドロップダウンは最初の項目が既定値。本文内の選択肢をクリックして切り替えも可。',
     'detail.rel':          '関連プロンプト',
+    'detail.tab-prompt':   'プロンプト',
+    'detail.tab-skill':    'スキル',
+    'detail.skill-src':    'ソース',
+    'detail.skill-stars':  'スター',
+    'detail.skill-author': '作者',
     'tag.item':            '件',
     'empty.title':         '該当するプロンプトがありません',
     'empty.hint':          '別のキーワードを試すか、フィルタをクリアしてください。',

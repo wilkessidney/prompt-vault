@@ -620,6 +620,22 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
 .md pre .pv-choice { border-style: solid; }
 
+/* Skill tabs */
+.skill-tabs { display: flex; gap: 4px; margin: 0 26px 16px; }
+.skill-tab {
+  padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 500;
+  background: var(--surface); border: 1px solid var(--border); color: var(--text-2);
+  cursor: pointer; transition: .16s var(--ease);
+}
+.skill-tab:hover { border-color: color-mix(in srgb, var(--c) 40%, var(--border)); color: var(--text); }
+.skill-tab.active { background: color-mix(in srgb, var(--c) 12%, var(--surface)); border-color: var(--c); color: var(--c); }
+.skill-content { padding: 0 26px; }
+.skill-content-skill pre {
+  margin: 0; padding: 18px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r); overflow-x: auto; font-size: 12.5px; line-height: 1.65;
+}
+.skill-content-skill code { font-family: "SF Mono", ui-monospace, Menlo, monospace; color: var(--text); }
+
 /* 相关推荐 */
 .rel { margin-top: 28px; }
 .rel h2 { font-size: 14px; font-weight: 650; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
@@ -704,6 +720,8 @@ code { font-family: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, 
   .dtl-head, .dtl-body { padding: 18px 16px; border-radius: 0; border-left: none; border-right: none; overflow: visible; width: 100%; }
   .dtl-head h1 { font-size: 19px; }
   .foot-in { padding: 18px 14px; }
+  .skill-tabs { margin: 0 16px 12px; }
+  .skill-content { padding: 0 16px; }
 }
 @media (max-width: 560px) {
   .hdr-in { padding: 0 10px; gap: 7px; }

@@ -1,0 +1,2735 @@
+{
+  "total": 500,
+  "fetched": 261,
+  "skipped": 89,
+  "failed": 150,
+  "stats": [
+    {
+      "owner": "vercel-labs",
+      "repo": "skills",
+      "skill": "find-skills",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "ai-video-generation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "ai-image-generation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "ai-avatar-video",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "twitter-automation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "remotion-render",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "grill-me",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "grill-with-docs",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "improve-codebase-architecture",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "anthropics",
+      "repo": "skills",
+      "skill": "frontend-design",
+      "status": "ok",
+      "stars": 175249
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "tdd",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "setup-matt-pocock-skills",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "handoff",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "triage",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "prototype",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "vercel-labs",
+      "repo": "agent-browser",
+      "skill": "agent-browser",
+      "status": "ok",
+      "stars": 42228
+    },
+    {
+      "owner": "vercel-labs",
+      "repo": "agent-skills",
+      "skill": "vercel-react-best-practices",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "grilling",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "teach",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "vercel-labs",
+      "repo": "agent-skills",
+      "skill": "web-design-guidelines",
+      "status": "ok",
+      "stars": 30982
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "ai-video-generation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "ai-image-generation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "ai-avatar-video",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "twitter-automation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "domain-modeling",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "microsoft-foundry",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "codebase-design",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-diagnostics",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-prepare",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-ai",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-deploy",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-validate",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-storage",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "entra-app-registration",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "appinsights-instrumentation",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-resource-visualizer",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-resource-lookup",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-compliance",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-aigateway",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-kusto",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "diagnosing-bugs",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-messaging",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "sleekdotdesign",
+      "repo": "agent-skills",
+      "skill": "sleek-design-mobile-apps",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "ask-matt",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "implement",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "remotion-dev",
+      "repo": "skills",
+      "skill": "remotion-best-practices",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "code-review",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-compute",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes-cli",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-cloud-migrate",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "juliusbrussee",
+      "repo": "caveman",
+      "skill": "caveman",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-rbac",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "github-actions-docs",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "openclaw-secure-linux-cloud",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "secure-linux-web-hosting",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "skills-cli",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "running-claude-code-via-litellm-copilot",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "opensource-guide-coach",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "readme-i18n",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "use-my-browser",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "wayfinder",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "xget",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "tzst",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "xdrop",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "research",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "to-spec",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "to-tickets",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "design-taste-frontend",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "paper-context-resolver",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "resolving-merge-conflicts",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "repo-intake-and-plan",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "minimal-run-and-audit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "env-and-assets-bootstrap",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes-registry",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-doc",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-hosted-copilot-sdk",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-base",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-shared",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-drive",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-im",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-quotas",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-sheets",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-wiki",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-whiteboard",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-task",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-calendar",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-mail",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "xixu-me",
+      "repo": "skills",
+      "skill": "develop-userscripts",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-minutes",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-vc",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-event",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-contact",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-workflow-meeting-summary",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-workflow-standup-report",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-openapi-explorer",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-skill-maker",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-upgrade",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "video-edit",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "image-to-video",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "nano-banana-2",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "image-edit",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "nano-banana-edit",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "flux-kontext",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "wan-2-7",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "gpt-image-edit",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "seedance-v2",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "happyhorse-1-0",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "flux-2-klein",
+      "status": "ok",
+      "stars": 43
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-approval",
+      "status": "ok",
+      "stars": 17081
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "image-to-video",
+      "status": "ok",
+      "stars": 12
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "video-edit",
+      "status": "ok",
+      "stars": 12
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-enterprise-infra-planner",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-kubernetes",
+      "status": "ok",
+      "stars": 1463
+    },
+    {
+      "owner": "genmedia-labs",
+      "repo": "skills",
+      "skill": "video-edit",
+      "status": "ok",
+      "stars": 5
+    },
+    {
+      "owner": "genmedia-labs",
+      "repo": "skills",
+      "skill": "ai-music",
+      "status": "ok",
+      "stars": 5
+    },
+    {
+      "owner": "genmedia-labs",
+      "repo": "skills",
+      "skill": "ai-video-generation",
+      "status": "ok",
+      "stars": 5
+    },
+    {
+      "owner": "genmedia-labs",
+      "repo": "skills",
+      "skill": "image-to-video",
+      "status": "ok",
+      "stars": 5
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "ai-image-generation",
+      "status": "ok",
+      "stars": 12
+    },
+    {
+      "owner": "genmedia-labs",
+      "repo": "skills",
+      "skill": "ai-image-generation",
+      "status": "ok",
+      "stars": 5
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "ai-video-generation",
+      "status": "ok",
+      "stars": 12
+    },
+    {
+      "owner": "supabase",
+      "repo": "agent-skills",
+      "skill": "supabase-postgres-best-practices",
+      "status": "ok",
+      "stars": 2587
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "ai-music",
+      "status": "ok",
+      "stars": 12
+    },
+    {
+      "owner": "doany-skills",
+      "repo": "skills",
+      "skill": "reddit-automation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "kling-3-0",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes-core",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-slides",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-attendance",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "media-use",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "codex-pet",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes-animation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "anthropics",
+      "repo": "skills",
+      "skill": "skill-creator",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-cost",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-okr",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "agentspace-so",
+      "repo": "skills",
+      "skill": "agentspace",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "to-prd",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "flowkit-labs",
+      "repo": "skills",
+      "skill": "reddit-automation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "ai-video-generation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes-creative",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "ai-image-generation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "runcomfy-cli",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "ai-avatar-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "face-swap",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "brainstorming",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "video-inpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "image-inpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "controlnet-pose",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "lipsync",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "video-extend",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "to-issues",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "elevenlabs-music-generation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "image-outpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "relight",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "video-outpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "nextlevelbuilder",
+      "repo": "ui-ux-pro-max-skill",
+      "skill": "ui-ux-pro-max",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-markdown",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "ai-music",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "soultrace-ai",
+      "repo": "soultrace-skill",
+      "skill": "soultrace",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prime-skills",
+      "repo": "runcomfy-agent-skills",
+      "skill": "ace-step",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "juliusbrussee",
+      "repo": "caveman",
+      "skill": "caveman-commit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "juliusbrussee",
+      "repo": "caveman",
+      "skill": "caveman-review",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "juliusbrussee",
+      "repo": "caveman",
+      "skill": "caveman-compress",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "high-end-visual-design",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "redesign-existing-projects",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "git-guardrails-claude-code",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "juliusbrussee",
+      "repo": "caveman",
+      "skill": "caveman-help",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "wizard",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "vercel-labs",
+      "repo": "agent-skills",
+      "skill": "vercel-composition-patterns",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "setup-pre-commit",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "writing-great-skills",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-vc-agent",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "scaffold-exercises",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "writing-beats",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "writing-shape",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "writing-fragments",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "agent-browser",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "migrate-to-shoehorn",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "airunway-aks-setup",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "ai-research-explore",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "analyze-project",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "ai-research-reproduction",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "minimalist-ui",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "explore-code",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "safe-debug",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "run-train",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "lllllllama",
+      "repo": "rigorpilot-skills",
+      "skill": "explore-run",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "full-output-enforcement",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "juliusbrussee",
+      "repo": "caveman",
+      "skill": "cavecrew",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "industrial-brutalist-ui",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "entra-agent-id",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "juliusbrussee",
+      "repo": "caveman",
+      "skill": "caveman-stats",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "coll_ai-video-generation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "gpt-taste",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "coll_ai-music",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "stitch-design-taste",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "coll_ai-image-generation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes-keyframes",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-apps",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "brandkit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "coll_video-edit",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "coll_image-to-video",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "to-questionnaire",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "gpt-image-2",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "nano-banana-edit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "face-swap",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "ai-avatar-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "image-outpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "seedance-v2",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "video-extend",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "seedance-v2",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "flux-2-klein",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "video-inpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "face-swap",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "happyhorse-1-0",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "controlnet-pose",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "elevenlabs-music-generation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "flux-2-klein",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "image-inpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "codex-pet",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "gpt-image-2",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "image-inpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "video-outpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "image-edit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "runcomfy-cli",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "ai-image-generation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "image-edit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "gpt-image-edit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "wan-2-7",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "runcomfy-cli",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "kling-3-0",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "lipsync",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "image-to-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "lipsync",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "relight",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "image-to-code",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "flux-kontext",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "video-outpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "nano-banana-2",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "controlnet-pose",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "ai-avatar-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "relight",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "nano-banana-edit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "ace-step",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "elevenlabs-music-generation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "ace-step",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "gpt-image-edit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "happyhorse-1-0",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "image-outpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "video-extend",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "flux-kontext",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "runcomfy-com",
+      "repo": "skills",
+      "skill": "nano-banana-2",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "kling-3-0",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "ai-video-generation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "video-inpainting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "video-edit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "ai-music",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "doany-ai",
+      "repo": "skills",
+      "skill": "wan-2-7",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "loop-me",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "imagegen-frontend-web",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "shadcn",
+      "repo": "ui",
+      "skill": "shadcn",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-database-setup",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-client-api",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-cli",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "impeccable",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "imagegen-frontend-mobile",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "remotion-to-hyperframes",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-postgres",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "supabase",
+      "repo": "agent-skills",
+      "skill": "supabase",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-driver-adapter-implementation",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-upgrade-v7",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-postgres-setup",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "emilkowalski",
+      "repo": "skills",
+      "skill": "emil-design-eng",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "agentspace-so",
+      "repo": "skills",
+      "skill": "find-skills",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-compute",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "prisma",
+      "repo": "skills",
+      "skill": "prisma-mongodb-upgrade",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "systematic-debugging",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "claude-handoff",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-reliability",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "scrapegraphai",
+      "repo": "just-scrape",
+      "skill": "just-scrape",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "writing-plans",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "general-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "diagnose",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "using-superpowers",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "write-a-skill",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "zoom-out",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "writing-for-agents",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "leonxlnx",
+      "repo": "taste-skill",
+      "skill": "design-taste-frontend-v1",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "caveman",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "requesting-code-review",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "product-launch-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "faceless-explainer",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "test-driven-development",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "wait-what",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "motion-graphics",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "anthropics",
+      "repo": "skills",
+      "skill": "pptx",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "design-an-interface",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "stablyai",
+      "repo": "orca",
+      "skill": "orca-cli",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "agent-tools",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "web-search",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "infsh-cli",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "python-executor",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "request-refactor-plan",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-cost-optimization",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "setup-ts-deep-modules",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "larksuite",
+      "repo": "cli",
+      "skill": "lark-note",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "executing-plans",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "vercel-labs",
+      "repo": "agent-skills",
+      "skill": "vercel-react-native-skills",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "qa",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "verification-before-completion",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "ubiquitous-language",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "skill": "seo-audit",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "obsidian-vault",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "embedded-captions",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "subagent-driven-development",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "edit-article",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "pr-to-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "skill": "copywriting",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "anthropics",
+      "repo": "skills",
+      "skill": "pdf",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "receiving-code-review",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "stablyai",
+      "repo": "orca",
+      "skill": "orchestration",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "dispatching-parallel-agents",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "writing-skills",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "using-git-worktrees",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "anthropics",
+      "repo": "skills",
+      "skill": "docx",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "obra",
+      "repo": "superpowers",
+      "skill": "finishing-a-development-branch",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "music-to-video",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "slideshow",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "python-appservice-deploy",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "anthropics",
+      "repo": "skills",
+      "skill": "xlsx",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "google",
+      "repo": "agents-cli",
+      "skill": "google-agents-cli-adk-code",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "google",
+      "repo": "agents-cli",
+      "skill": "google-agents-cli-workflow",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "google",
+      "repo": "agents-cli",
+      "skill": "google-agents-cli-eval",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "google",
+      "repo": "agents-cli",
+      "skill": "google-agents-cli-deploy",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "google",
+      "repo": "agents-cli",
+      "skill": "google-agents-cli-scaffold",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "google",
+      "repo": "agents-cli",
+      "skill": "google-agents-cli-observability",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "google",
+      "repo": "agents-cli",
+      "skill": "google-agents-cli-publish",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "talking-head-recut",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "higgsfield-ai",
+      "repo": "skills",
+      "skill": "higgsfield-generate",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "anthropics",
+      "repo": "skills",
+      "skill": "webapp-testing",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "hyperframes-media",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "firebase",
+      "repo": "agent-skills",
+      "skill": "firebase-basics",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "neondatabase",
+      "repo": "agent-skills",
+      "skill": "neon-postgres",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "firebase",
+      "repo": "agent-skills",
+      "skill": "firebase-auth-basics",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "microsoft",
+      "repo": "playwright-cli",
+      "skill": "playwright-cli",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "emilkowalski",
+      "repo": "skills",
+      "skill": "review-animations",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "wind-information-co-ltd",
+      "repo": "wind-skills",
+      "skill": "wind-mcp-skill",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "firebase",
+      "repo": "agent-skills",
+      "skill": "firebase-hosting-basics",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "firebase",
+      "repo": "agent-skills",
+      "skill": "firebase-app-hosting-basics",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "firebase",
+      "repo": "agent-skills",
+      "skill": "firebase-data-connect",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "skill": "marketing-psychology",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "sentry",
+      "repo": "dev",
+      "skill": "sentry-cli",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "higgsfield-ai",
+      "repo": "skills",
+      "skill": "higgsfield-product-photoshoot",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "skill": "content-strategy",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "higgsfield-ai",
+      "repo": "skills",
+      "skill": "higgsfield-soul-id",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "stablyai",
+      "repo": "orca",
+      "skill": "computer-use",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "higgsfield-ai",
+      "repo": "skills",
+      "skill": "higgsfield-marketplace-cards",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "emilkowalski",
+      "repo": "skills",
+      "skill": "animation-vocabulary",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "vyralcontent",
+      "repo": "content-skills",
+      "skill": "viral-short-form",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "skill": "programmatic-seo",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "arvindrk",
+      "repo": "extract-design-system",
+      "skill": "extract-design-system",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "emilkowalski",
+      "repo": "skills",
+      "skill": "apple-design",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "skill": "marketing-ideas",
+      "status": "ok",
+      "stars": 0
+    },
+    {
+      "owner": "vercel-labs",
+      "repo": "agent-skills",
+      "skill": "vercel-react-view-transitions",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "agent-browser",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "landing-page-design",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "youtube-thumbnail-design",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "product-photography",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "app-store-screenshots",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "storyboard-creation",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "character-design-sheet",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "image-to-video",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "competitor-teardown",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "video-ad-specs",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "inference-sh",
+      "repo": "skills",
+      "skill": "product-hunt-launch",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "better-auth",
+      "repo": "skills",
+      "skill": "better-auth-best-practices",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "website-to-video",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "microsoft",
+      "repo": "azure-skills",
+      "skill": "azure-observability",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "gsap",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "get-convex",
+      "repo": "agent-skills",
+      "skill": "convex-performance-audit",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "review",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "get-convex",
+      "repo": "agent-skills",
+      "skill": "convex-setup-auth",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "get-convex",
+      "repo": "agent-skills",
+      "skill": "convex-migration-helper",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "website-to-hyperframes",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "polish",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "critique",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "audit",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "animate",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "adapt",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "clarify",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "optimize",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "colorize",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "bolder",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "delight",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "implement-spec",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "distill",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "quieter",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "web-search",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "agent-tools",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "infsh-cli",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "remotion-render",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "skills-101",
+      "repo": "superpowers",
+      "skill": "python-executor",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "css-animations",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "tailwind",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "wshobson",
+      "repo": "agents",
+      "skill": "typescript-advanced-types",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "animejs",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "three",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "lottie",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "heygen-com",
+      "repo": "hyperframes",
+      "skill": "waapi",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "mattpocock",
+      "repo": "skills",
+      "skill": "retro",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "coreyhaines31",
+      "repo": "marketingskills",
+      "skill": "social-content",
+      "status": "no_skill_md"
+    },
+    {
+      "owner": "pbakaus",
+      "repo": "impeccable",
+      "skill": "typeset",
+      "status": "no_skill_md"
+    }
+  ]
+}
